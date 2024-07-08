@@ -1,5 +1,4 @@
 /* src/styles.css */
-/*Home*/
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -23,7 +22,6 @@ body {
   color: #ffcc00;
 }
 
-
 .navbar nav ul {
   display: flex;
   list-style: none;
@@ -33,6 +31,7 @@ body {
 
 .navbar nav ul li {
   margin: 0 15px;
+  position: relative;
 }
 
 .navbar nav ul li a {
@@ -60,6 +59,39 @@ body {
   left: 0;
 }
 
+.navbar nav ul li.dropdown {
+  cursor: pointer;
+}
+
+.navbar nav ul li .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgb(26, 25, 25);
+  border: 1px solid #ffcc00;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.navbar nav ul li .dropdown-menu li {
+  margin: 0;
+}
+
+.navbar nav ul li .dropdown-menu li a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #ffcc00;
+  white-space: nowrap;
+}
+
+.navbar nav ul li .dropdown-menu li a img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
 
 .auth-buttons {
   display: flex;
@@ -223,6 +255,7 @@ body {
     height: auto;
   }
 }
+
 
 /* vehicle*/
 
