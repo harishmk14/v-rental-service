@@ -343,6 +343,7 @@ body {
   height: 100vh;
   background-color: #ffffff;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .register-logo {
@@ -357,11 +358,13 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 650px;
   text-align: center;
   position: absolute;
-  right: 15%;
-  max-width: 400px;
+  right: 5%;
+  -webkit-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+-moz-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
 }
 
 .register-box h2 {
@@ -393,9 +396,28 @@ body {
 .input-group.horizontal-group {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .input-group.horizontal-group .input-item {
+  width: calc(50% - 5px);
+}
+
+.input-group.horizontal-group1 {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.input-group.horizontal-group1 .input-item1 {
+  width: 15%;
+}
+
+.input-group.horizontal-group1 .input-item2 {
+  width: 30%;
+}
+
+.input-group.horizontal-group1 .input-item3 {
   width: 48%;
 }
 
@@ -426,14 +448,18 @@ body {
 @media (max-width: 768px) {
   .register-box {
     width: 90%;
-    right: 5%;
+    padding: 15px;
   }
 
-  .input-group.horizontal-group {
+  .input-group.horizontal-group,
+  .input-group.horizontal-group1 {
     flex-direction: column;
   }
 
-  .input-group.horizontal-group .input-item {
+  .input-group.horizontal-group .input-item,
+  .input-group.horizontal-group1 .input-item1,
+  .input-group.horizontal-group1 .input-item2,
+  .input-group.horizontal-group1 .input-item3 {
     width: 100%;
   }
 
@@ -451,15 +477,18 @@ body {
 @media (max-width: 480px) {
   .register-box {
     width: 100%;
-    right: 0;
     padding: 10px;
   }
 
-  .input-group.horizontal-group {
+  .input-group.horizontal-group,
+  .input-group.horizontal-group1 {
     flex-direction: column;
   }
 
-  .input-group.horizontal-group .input-item {
+  .input-group.horizontal-group .input-item,
+  .input-group.horizontal-group1 .input-item1,
+  .input-group.horizontal-group1 .input-item2,
+  .input-group.horizontal-group1 .input-item3 {
     width: 100%;
   }
 
@@ -473,6 +502,7 @@ body {
     left: 0;
   }
 }
+
 
 /*Login Styles */
 .login-container {
@@ -501,6 +531,9 @@ body {
   position: absolute;
   right: 15%;
   max-width: 400px;
+  -webkit-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+-moz-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
 }
 
 .login-box h2 {

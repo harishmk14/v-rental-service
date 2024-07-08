@@ -86,8 +86,8 @@ function SignUp() {
               {errors.lastName && <span className="error">{errors.lastName}</span>}
             </div>
           </div>
-          <div className="input-group horizontal-group">
-            <div className="input-item">
+          <div className="input-group horizontal-group1">
+            <div className="input-item1">
               <label>Age</label>
               <input
                 type="text"
@@ -98,7 +98,7 @@ function SignUp() {
               />
               {errors.age && <span className="error">{errors.age}</span>}
             </div>
-            <div className="input-item">
+            <div className="input-item2">
               <label>Gender</label>
               <select
                 name="gender"
@@ -112,8 +112,7 @@ function SignUp() {
               </select>
               {errors.gender && <span className="error">{errors.gender}</span>}
             </div>
-          </div>
-          <div className="input-group">
+            <div className="input-item3">
             <label>Mobile</label>
             <input
               type="text"
@@ -123,6 +122,7 @@ function SignUp() {
               onChange={handleChange}
             />
             {errors.mobile && <span className="error">{errors.mobile}</span>}
+          </div>
           </div>
           <div className="input-group">
             <label>Email</label>
