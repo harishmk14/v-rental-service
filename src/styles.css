@@ -59,40 +59,6 @@ body {
   left: 0;
 }
 
-.navbar nav ul li.dropdown {
-  cursor: pointer;
-}
-
-.navbar nav ul li .dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: rgb(26, 25, 25);
-  border: 1px solid #ffcc00;
-  border-radius: 10px;
-  z-index: 1000;
-}
-
-.navbar nav ul li .dropdown-menu li {
-  margin: 0;
-}
-
-.navbar nav ul li .dropdown-menu li a {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  color: #ffcc00;
-  white-space: nowrap;
-}
-
-.navbar nav ul li .dropdown-menu li a img {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
 .auth-buttons {
   display: flex;
   gap: 10px;
@@ -257,7 +223,7 @@ body {
 }
 
 
-/* vehicle*/
+/* vehicle */
 
 .vehicles-page {
   text-align: center;
@@ -277,6 +243,9 @@ body {
   padding: 20px;
   width: 250px;
   text-align: left;
+  -webkit-box-shadow: 0px 0px 11px 5px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 11px 5px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 11px 5px rgba(0,0,0,0.3);
 }
 
 .vehicle-card img {
@@ -314,26 +283,70 @@ body {
   font-size: 12px;
 }
 
-.rent-button {
+.test-button {
   background-color: #ffcc00;
-  color: #fff;
-  border: none;
+  color: #000000;
   padding: 10px 20px;
-  border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
+  font-weight: bold;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
 }
 
-.rent-button:hover {
-  background-color: #ffcc00;
+.test-button:hover {
+  background-color: #e6b800;
+}
+
+.renttest{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 .vehicle-main {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 84.4px;
+  padding: 50px;
 }
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filters button {
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  color: #000000;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+
+}
+
+.filters button:hover {
+  background-color: #e6b800;
+}
+
 
 /*Registration Styles */
 .register-container {
@@ -509,7 +522,7 @@ box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   background-color: #ffffff;
   padding: 20px;
 }
@@ -532,8 +545,8 @@ box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
   right: 15%;
   max-width: 400px;
   -webkit-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
--moz-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+  -moz-box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
+  box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
 }
 
 .login-box h2 {
@@ -582,7 +595,6 @@ box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
   padding: 10px;
   background-color: #ffffff;
   color: #023258;
-  border: none;
   cursor: pointer;
   border-radius: 6px;
   border-style: solid;
@@ -660,6 +672,84 @@ box-shadow: 0px 0px 26px -3px rgba(0,0,0,0.69);
     left: 0;
   }
 }
+
+
+/* Booking Page Styles */
+.booking-page {
+  text-align: center;
+}
+
+.booking-main {
+  background-color: #ffffff;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  width: 400px;
+  height: 579px;
+  padding: 20px;
+  background-color: #edecec;
+}
+
+.booking-form .form-row {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.booking-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+}
+
+.booking-form input{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 85%;
+}
+
+.booking-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 96%;
+}
+
+.wdriver {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  background-color: #ffcc00;
+  color: #000000;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 30%;
+  font-weight: bold;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+}
+
+.submit-button:hover {
+  background-color: #e6b800;
+}
+
+.searchb{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 

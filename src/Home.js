@@ -1,16 +1,10 @@
 // src/Home.js
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import car from './img/car.png';
-import bikeIcon from './img/bike.png'; // Import your icons
-import carIcon from './img/car1.png';
-import vanIcon from './img/van.png';
-import busIcon from './img/bus.png';
 
 function Home() {
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSignIn = () => {
     navigate('/signin');
@@ -20,9 +14,6 @@ function Home() {
     navigate('/signup');
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
   return (
     <div className="home">
@@ -31,24 +22,10 @@ function Home() {
         <nav>
           <ul>
             <li><a href="/">Home</a></li>
-            <li 
-              className="dropdown"
-              onMouseEnter={toggleDropdown}
-              onMouseLeave={toggleDropdown}
-            >
-              <a href="/vehicles">Vehicles</a>
-              {dropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li><a href="/vehicles/bike"><img src={bikeIcon} alt="Bike" />Bike</a></li>
-                  <li><a href="/vehicles/car"><img src={carIcon} alt="Car" />Car</a></li>
-                  <li><a href="/vehicles/van"><img src={vanIcon} alt="Van" />Van</a></li>
-                  <li><a href="/vehicles/bus"><img src={busIcon} alt="Bus" />Bus</a></li>
-                </ul>
-              )}
-            </li>
-            <li><a href="#booking">Booking</a></li>
-            <li><a href="#testimonial">Testimonial</a></li>
+            <li><a href="/vehicles">Vehicles</a></li>
+            <li><a href="/booking">Booking</a></li>
             <li><a href="#payment">Payment</a></li>
+            <li><a href="#journy">Your Journy</a></li>
           </ul>
         </nav>
         <div className="auth-buttons">
