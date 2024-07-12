@@ -13,6 +13,7 @@ function Booking() {
     driver: 'with-driver',
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -23,35 +24,18 @@ function Booking() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add booking submission logic here
+    // Add booking submission logic here
     console.log(form);
     alert('Booking Submitted!');
   };
 
   return (
     <div className="booking-page">
-      <header className="navbar">
-        <div className="logo">V-RENTAL</div>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/vehicles">Vehicles</a></li>
-            <li><a href="#booking">Booking</a></li>
-            <li><a href="#payment">Payment</a></li>
-            <li><a href="#journy">Your Journey</a></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <button className="signin-btn">Sign In</button>
-          <button className="signup-btn">Sign Up</button>
-        </div>
-      </header>
-      <main className="booking-main">
-        
+      <div className="booking-main">
         <form className="booking-form" onSubmit={handleSubmit}>
           <h1>Search Vehicle</h1>
           <div className="form-row">
-            <label>
+            <label className='first'>
               Vehicle Type:
               <select name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
                 <option value="">Select a type</option>
@@ -61,9 +45,10 @@ function Booking() {
                 <option value="bus">Bus</option>
               </select>
             </label>
-            <label>
+            <label className='first'>
               Number of Seats:
               <input
+                className='first1'
                 type="number"
                 name="seats"
                 value={form.seats}
@@ -72,12 +57,13 @@ function Booking() {
                 min="1"
                 max="100"
               />
-            </label>
+            </label> 
           </div>
           <div className="form-row">
-            <label>
+            <label className='first'>
               Start Date:
               <input
+                className='first1'
                 type="date"
                 name="startDate"
                 value={form.startDate}
@@ -85,9 +71,10 @@ function Booking() {
                 required
               />
             </label>
-            <label>
+            <label className='first'>
               End Date:
               <input
+                className='first1'
                 type="date"
                 name="endDate"
                 value={form.endDate}
@@ -97,9 +84,10 @@ function Booking() {
             </label>
           </div>
           <div className="form-row">
-            <label>
+            <label className='first'>
               Start Time:
               <input
+                className='first1'
                 type="time"
                 name="startTime"
                 value={form.startTime}
@@ -107,9 +95,10 @@ function Booking() {
                 required
               />
             </label>
-            <label>
+            <label className='first'>
               End Time:
               <input
+                className='first1'
                 type="time"
                 name="endTime"
                 value={form.endTime}
@@ -118,34 +107,40 @@ function Booking() {
               />
             </label>
           </div>
-          <div className="wdriver">
-            <label>Driver:</label>
-            <label>
-              <input
-                type="radio"
-                name="driver"
-                value="with-driver"
-                checked={form.driver === 'with-driver'}
-                onChange={handleChange}
-              />
-              With Driver
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="driver"
-                value="without-driver"
-                checked={form.driver === 'without-driver'}
-                onChange={handleChange}
-              />
-              Without Driver
-            </label>
+          <div className="driver-container">
+            <label className='single'>Driver:</label>
+            <div className="driver-ratio">
+              <label className='second'>
+                <input
+                  className='second2'
+                  type="radio"
+                  name="driver"
+                  value="with-driver"
+                  checked={form.driver === 'with-driver'}
+                  onChange={handleChange}
+                />
+                With Driver
+              </label>
+              <label className='second'> 
+                <input
+                  className='second2'
+                  type="radio"
+                  name="driver"
+                  value="without-driver"
+                  checked={form.driver === 'without-driver'}
+                  onChange={handleChange}
+                />
+                Without Driver
+              </label>
+            </div>
           </div>
+
           <div className="searchb">
-          <button type="submit" className="submit-button">Search</button>
+            <button type="submit" className="submit-button">Search</button>
           </div>
         </form>
-      </main>
+        <div className='line'></div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
-import img1 from '../src/img/img1.jpg';
+import img1 from '../src/img/img1.png';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -58,9 +58,11 @@ function SignUp() {
 
   return (
     <div className="register-container">
-      <img src={img1} alt="Logo" className="register-logo" />
+      <div className="register-img-container">
+        <img src={img1} alt="Logo" className="register-logo" />
+      </div>
       <div className="register-box">
-        <h2>REGISTER TO V-RENTAL</h2>
+        <h1>REGISTER TO V-RENTAL</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group horizontal-group">
             <div className="input-item">
@@ -113,16 +115,16 @@ function SignUp() {
               {errors.gender && <span className="error">{errors.gender}</span>}
             </div>
             <div className="input-item3">
-            <label>Mobile</label>
-            <input
-              type="text"
-              placeholder="Mobile"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-            />
-            {errors.mobile && <span className="error">{errors.mobile}</span>}
-          </div>
+              <label>Mobile</label>
+              <input
+                type="text"
+                placeholder="Mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+              />
+              {errors.mobile && <span className="error">{errors.mobile}</span>}
+            </div>
           </div>
           <div className="input-group">
             <label>Email</label>

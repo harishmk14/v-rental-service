@@ -1,5 +1,4 @@
 // src/Vehicles.js
-import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import './styles.css';
 import CAR1 from '../src/img/Honda_Jazz.png'
@@ -21,15 +20,6 @@ import BUS4 from '../src/img/man_lions_coach.png'
 
 function Vehicles() {
 
-  const navigate = useNavigate();
-  
-  const handleSignIn = () => {
-    navigate('/signin');
-  };
-
-  const handleSignUp = () => {
-    navigate('/signup');
-  };
   
   const vehiclesData = [
     // Cars
@@ -84,7 +74,7 @@ function Vehicles() {
     },
     {
       type: "Bike",
-      name: "Harley-Davidson Street 750",
+      name: "Harley-Davidson 750",
       price: 130,
       reviews: "34 Reviews",
       src: BIKE3,
@@ -208,23 +198,7 @@ function Vehicles() {
 
   return (
     <div className="vehicles-page">
-      <header className="navbar">
-        <div className="logo">V-RENTAL</div>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#vehicles">Vehicles</a></li>
-            <li><a href="/booking">Booking</a></li>
-            <li><a href="#payment">Payment</a></li>
-            <li><a href="#journy">Your Journy</a></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <button className="signin-btn" onClick={handleSignIn}>Sign In</button>
-          <button className="signup-btn" onClick={handleSignUp}>Sign Up</button>
-        </div>
-      </header>
-      <main className="vehicle-main">
+      <div className="vehicle-main">
         <div className="filters">
           <select name="price" value={filters.price} onChange={handleFilterChange}>
             <option value="">All Prices</option>
@@ -285,7 +259,7 @@ function Vehicles() {
             </div>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
