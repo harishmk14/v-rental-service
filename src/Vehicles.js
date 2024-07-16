@@ -18,142 +18,31 @@ import BUS2 from '../src/img/volvo_9700.png'
 import BUS3 from '../src/img/scania_touring.png'
 import BUS4 from '../src/img/man_lions_coach.png'
 
+
 function Vehicles() {
 
   
   const vehiclesData = [
     // Cars
-    {
-      type: "Car",
-      name: "Honda Jazz",
-      price: 250,
-      reviews: "23 Reviews",
-      src: CAR1,
-      features: ["4 Seats", "AC", "Auto", "Petrol"]
-    },
-    {
-      type: "Car",
-      name: "Volkswagen Vento",
-      price: 270,
-      reviews: "76 Reviews",
-      src: CAR2,
-      features: ["4 Seats", "AC", "Auto", "Petrol"]
-    },
-    {
-      type: "Car",
-      name: "Nissan GT-R",
-      price: 450,
-      reviews: "42 Reviews",
-      src: CAR3,
-      features: ["4 Seats", "AC", "Auto", "Petrol"]
-    },
-    {
-      type: "Car",
-      name: "Mitsubishi ASX",
-      price: 375,
-      reviews: "35 Reviews",
-      src: CAR4,
-      features: ["4 Seats", "AC", "Auto", "Petrol"]
-    },
+    {type: "Car",name: "Honda Jazz",price: 2500,reviews: "23 Reviews", star: 4.5,src: CAR1,features: ["4 Seats", "AC", "Auto", "Petrol"]},
+    {type: "Car",name: "Volkswagen Vento",price: 2700,reviews: "76 Reviews", star: 4.5,src: CAR2,features: ["4 Seats", "AC", "Auto", "Petrol"]},
+    {type: "Car",name: "Nissan GT-R",price: 4500,reviews: "42 Reviews", star: 4.5,src: CAR3,features: ["4 Seats", "AC", "Auto", "Petrol"]},
+    {type: "Car",name: "Mitsubishi ASX",price: 3750,reviews: "35 Reviews", star: 4.5,src: CAR4,features: ["4 Seats", "AC", "Auto", "Petrol"]},
     // Bikes
-    {
-      type: "Bike",
-      name: "Yamaha YZF-R1",
-      price: 150,
-      reviews: "19 Reviews",
-      src: BIKE1,
-      features: ["2 Seats", "AC", "Manual", "Petrol"]
-    },
-    {
-      type: "Bike",
-      name: "Ducati Panigale V4",
-      price: 180,
-      reviews: "25 Reviews",
-      src: BIKE2,
-      features: ["2 Seats", "AC", "Manual", "Petrol"]
-    },
-    {
-      type: "Bike",
-      name: "Harley-Davidson 750",
-      price: 130,
-      reviews: "34 Reviews",
-      src: BIKE3,
-      features: ["2 Seats", "AC", "Manual", "Petrol"]
-    },
-    {
-      type: "Bike",
-      name: "BMW S1000RR",
-      price: 200,
-      reviews: "29 Reviews",
-      src: BIKE4,
-      features: ["2 Seats", "AC", "Manual", "Petrol"]
-    },
+    {type: "Bike",name: "Yamaha YZF-R1",price: 1000,reviews: "19 Reviews", star: 4.5,src: BIKE1,features: ["2 Seats", "AC", "Manual", "Petrol"]},
+    {type: "Bike",name: "Ducati Panigale V4",price: 1800,reviews: "25 Reviews", star: 4.5,src: BIKE2,features: ["2 Seats", "AC", "Manual", "Petrol"]},
+    {type: "Bike",name: "Harley-Davidson 750",price: 1300,reviews: "34 Reviews", star: 4.5,src: BIKE3,features: ["2 Seats", "AC", "Manual", "Petrol"]},
+    {type: "Bike",name: "BMW S1000RR",price: 2000,reviews: "29 Reviews", star: 4.5,src: BIKE4,features: ["2 Seats", "AC", "Manual", "Petrol"]},
     // Vans
-    {
-      type: "Van",
-      name: "Ford Transit",
-      price: 300,
-      reviews: "40 Reviews",
-      src: VAN1,
-      features: ["8 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Van",
-      name: "Mercedes-Benz Sprinter",
-      price: 320,
-      reviews: "37 Reviews",
-      src: VAN2,
-      features: ["8 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Van",
-      name: "Ram ProMaster",
-      price: 310,
-      reviews: "45 Reviews",
-      src: VAN3,
-      features: ["8 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Van",
-      name: "Nissan NV3500",
-      price: 305,
-      reviews: "30 Reviews",
-      src: VAN4,
-      features: ["8 Seats", "AC", "Auto", "Diesel"]
-    },
+    {type: "Van",name: "Ford Transit",price: 9000,reviews: "40 Reviews", star: 4.5,src: VAN1,features: ["8 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Van",name: "Mercedes-Benz Sprinter",price: 4500,reviews: "37 Reviews", star: 4.5,src: VAN2,features: ["8 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Van",name: "Ram ProMaster",price: 5100,reviews: "45 Reviews", star: 4.5,src: VAN3,features: ["8 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Van",name: "Nissan NV3500",price: 6000,reviews: "30 Reviews", star: 4.5,src: VAN4,features: ["8 Seats", "AC", "Auto", "Diesel"]},
     // Buses
-    {
-      type: "Bus",
-      name: "Mercedes-Benz Tourismo",
-      price: 500,
-      reviews: "28 Reviews",
-      src: BUS1,
-      features: ["50 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Bus",
-      name: "Volvo 9700",
-      price: 520,
-      reviews: "32 Reviews",
-      src: BUS2,
-      features: ["50 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Bus",
-      name: "Scania Touring",
-      price: 510,
-      reviews: "25 Reviews",
-      src: BUS3,
-      features: ["50 Seats", "AC", "Auto", "Diesel"]
-    },
-    {
-      type: "Bus",
-      name: "MAN Lion's Coach",
-      price: 530,
-      reviews: "35 Reviews",
-      src: BUS4,
-      features: ["50 Seats", "AC", "Auto", "Diesel"]
-    }
+    {type: "Bus",name: "Mercedes-Benz Tourismo",price: 10000,reviews: "28 Reviews", star: 4.5,src: BUS1,features: ["50 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Bus",name: "Volvo 9700",price: 12000,reviews: "32 Reviews", star: 4.5,src: BUS2,features: ["50 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Bus",name: "Scania Touring",price: 12000,reviews: "25 Reviews", star: 4.5,src: BUS3,features: ["50 Seats", "AC", "Auto", "Diesel"]},
+    {type: "Bus",name: "MAN Lion's Coach",price: 15000,reviews: "35 Reviews", star: 4.5,src: BUS4,features: ["50 Seats", "AC", "Auto", "Diesel"]}
   ];
 
   const [filteredVehicles, setFilteredVehicles] = useState(vehiclesData);
@@ -202,10 +91,12 @@ function Vehicles() {
         <div className="filters">
           <select name="price" value={filters.price} onChange={handleFilterChange}>
             <option value="">All Prices</option>
-            <option value="200">Up to $200</option>
-            <option value="300">Up to $300</option>
-            <option value="400">Up to $400</option>
-            <option value="500">Up to $500</option>
+            <option value="1000">Up to 1000</option>
+            <option value="2000">Up to 2000</option>
+            <option value="3000">Up to 3000</option>
+            <option value="5000">Up to 5000</option>
+            <option value="10000">Up to 10000</option>
+            <option value="15000">Up to 15000</option>
           </select>
           <select name="brand" value={filters.brand} onChange={handleFilterChange}>
             <option value="">All Brands</option>
@@ -246,8 +137,8 @@ function Vehicles() {
             <div className="vehicle-card" key={index}>
               <img src={vehicle.src} alt={vehicle.name} className="vehicle-image" />
               <h2>{vehicle.name}</h2>
-              <p className="vehicle-price">${vehicle.price}/ Day</p>
-              <p className="vehicle-reviews">⭐ {vehicle.reviews}</p>
+              <p className="vehicle-price">Rs. {vehicle.price} / Day</p>
+              <p className="vehicle-reviews">{vehicle.star} ⭐/ {vehicle.reviews}</p>
               <div className="vehicle-features">
                 {vehicle.features.map((feature, i) => (
                   <div className="feature" key={i}>{feature}</div>
