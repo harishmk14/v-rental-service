@@ -78,23 +78,18 @@ function Booking() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add booking submission logic
-    console.log(form);
-    alert('Booking Submitted!');
-  };
-
 
   return (
-    <div className="booking-page">
-      <div className="booking-main">
-        <form style={{boxShadow: '0px 1px 6px 0px rgba(0, 0, 0, 0.2)'}} className="booking-form" onSubmit={handleSubmit}>
-          <h1>Search Vehicle</h1>
-          <div className="form-row">
-            <label className='first'>
+    <div className='booking_page'>
+      <div className='search_area'>
+        <div>
+          <h1 style={{textAlign:"center", color:"#132b75"}}>Search Vehicle</h1>
+          </div>
+        <div className='search_row'>
+            <div className='search_col'>
+              <label style={{color:"#132b75"}}>
               Vehicle Type:
-              <select name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
+              <select style={{padding:"10px", borderRadius:"5px",width:"102%"}} name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
                 <option value="">Select a type</option>
                 <option value="bike">Bike</option>
                 <option value="car">Car</option>
@@ -102,51 +97,62 @@ function Booking() {
                 <option value="bus">Bus</option>
               </select>
             </label>
-            <label className='first'>
+            </div>
+            <div className='search_col'>
+              <label style={{color:"#132b75"}}>
               Number of Seats:
-              <input className='first1' type="number" name="seats" value={form.seats} onChange={handleChange} required min="1" max="100" />
-            </label> 
-          </div>
-          <div className="form-row">
-            <label className='first'>
+              <input type="number" name="seats" value={form.seats} onChange={handleChange} required min="1" max="50"/>
+            </label>
+            </div>
+        </div>
+        <div className='search_row'>
+           <div className='search_col'>
+              <label style={{color:"#132b75"}}>
               Departure Date:
-              <input className='first1' type="date" name="startDate" value={form.startDate} onChange={handleChange} required/>
-            </label>
-            <label className='first'>
-              Arrive Date:
-              <input className='first1' type="date" name="endDate" value={form.endDate} onChange={handleChange} required />
-            </label>
-          </div>
-          <div className="form-row">
-            <label className='first'>
-              Departure Time:
-              <input className='first1' type="time" name="startTime" value={form.startTime}  onChange={handleChange}  required />
-            </label>
-            <label className='first'>
-              Arrive Time:
-              <input className='first1' type="time"  name="endTime"  value={form.endTime}  onChange={handleChange}  required />
-            </label>
-          </div>
-          <div className="driver-container">
-            <label className='single'>Driver:</label>
-            <div className="driver-ratio">
-              <label className='second'>
-                <input  className='second2' type="radio"  name="driver" value="with-driver"  checked={form.driver === 'with-driver'}  onChange={handleChange} />
-                With Driver
-              </label>
-              <label className='second'> 
-                <input className='second2'  type="radio"  name="driver" value="without-driver" checked={form.driver === 'without-driver'}  onChange={handleChange}  />
-                Without Driver
+              <input type="date" name="startDate" value={form.startDate} onChange={handleChange} required/>
               </label>
             </div>
+            <div className='search_col'>
+            <label style={{color:"#132b75"}}>
+              Arrive Date:
+            <input type="date" name="endDate" value={form.endDate} onChange={handleChange} required/>
+            </label>
           </div>
-
-          <div className="searchb">
-            <button type="submit" className="submit-button">Search</button>
+        </div>
+        <div className='search_row'>
+          <div className='search_col'>
+             <label style={{color:"#132b75"}}>
+              Departure Time:
+              <input type="time" name="startTime" value={form.startTime}  onChange={handleChange}  required/>
+             </label>
+            </div>
+            <div className='search_col'>
+            <label style={{color:"#132b75"}}>
+              Arrive Time:
+              <input type="time"  name="endTime"  value={form.endTime}  onChange={handleChange}  required />
+            </label>
           </div>
-        </form>
-        <div className='line'></div>
-        <div style={{padding:'20px',gap:'20px'}} className='bookv-cards'>
+          </div>
+        <div className='search_driver'>
+        <label style={{color:"#132b75"}}>Driver:</label>
+        <div className='driver_rad'>
+              <label style={{color:"#132b75"}}>
+                <input type="radio"  name="driver" value="with-driver"  checked={form.driver === 'with-driver'}  onChange={handleChange}/>
+                With Driver
+              </label>
+        </div>
+        <div className='driver_rad'>
+              <label style={{color:"#132b75"}}> 
+                <input type="radio"  name="driver" value="without-driver" checked={form.driver === 'without-driver'}  onChange={handleChange}/>
+                Without Driver
+              </label>
+        </div>
+        </div>
+        <div className='search_button'>
+            <button style={{color:"white", padding:"10px", width:"100px", borderRadius:"5px",backgroundColor:"#132b75"}} type="submit">Search</button>
+        </div>
+      </div>
+      <div style={{padding:'20px',gap:'20px'}} className='bookv-cards'>
           {vehiclesData.map((vehicle, index) => (
             <div className="bookv-card" key={index}>
               <img src={vehicle.src} alt={vehicle.name} className="bookv-image" />
@@ -172,8 +178,7 @@ function Booking() {
             </div>
           ))}
         </div>
-      </div>
-      <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} />
+        <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} />
     </div>
   );
 }

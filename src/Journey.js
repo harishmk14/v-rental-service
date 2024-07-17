@@ -1,7 +1,7 @@
-// src/Payment.js
+// src/journey.js
 import './styles.css';
 
-function Booking() {
+function journey() {
 
   return (
     <div>
@@ -9,4 +9,4 @@ function Booking() {
   );
 }
 
-export default Booking;
+export default journey;
