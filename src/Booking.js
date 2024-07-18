@@ -80,8 +80,8 @@ function Booking() {
 
 
   return (
-    <div className='booking_page'>
-      <div className='search_area'>
+    <div style={{backgroundColor:"#f4f4f4"}} className='booking_page'>
+      <div style={{ boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }} className='search_area'>
         <div>
           <h1 style={{textAlign:"center", color:"#132b75"}}>Search Vehicle</h1>
           </div>

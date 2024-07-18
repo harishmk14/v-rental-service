@@ -5,7 +5,8 @@ function Booking() {
 
   return (
     <div className='paymentmain'>
-      <div className='paymentmenu'>nbwvghv</div>
+      <div className='paymentmenu'>
+      </div>
       <div className='paymentcard'>hjvwxvwvwv</div>
     </div>
   );
