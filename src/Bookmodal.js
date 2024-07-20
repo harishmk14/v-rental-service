@@ -1,4 +1,6 @@
+// Bookmodal.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './styles.css';
 
 const Bookmodal = ({ show, onClose, vehicle }) => {
@@ -15,8 +17,13 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     alternateMobile: '',
     email: '',
     address: '',
-    proof: ''
+    proof: '',
+    travelType: '',
+    persons: '',
+    paymentMethod: ''
   });
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +38,11 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     // Add booking submission logic
     console.log(form);
     alert('Booking Details Submitted!');
+    if (form.paymentMethod === 'cashon') {
+      navigate('/journey', { state: { status: 'In Progress' } }); // Navigate to journey page with In Progress status
+    } else if (form.paymentMethod === 'onlinepay') {
+      navigate('/payment'); // Navigate to payment page
+    }
     resetForm(); 
     onClose();
   };
@@ -49,7 +61,10 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       alternateMobile: '',
       email: '',
       address: '',
-      proof: ''
+      proof: '',
+      travelType: '',
+      persons: '',
+      paymentMethod: ''
     });
   };
 
@@ -61,77 +76,86 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     <div className="modal-backdrop">
       <div className="modal-content">
         <h2 className="modal-title">{vehicle ? `Book ${vehicle.name}` : 'Booking Details'}</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", marginTop:"20px", rowGap:"15px"}}>
           <div className="mform-row">
-            <div>
-              <label>Departure Place:
-                <input type="text" name="departureLocation" value={form.departureLocation} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="text" name="departureLocation" value={form.departureLocation} onChange={handleChange} required placeholder='Departure Place' />
             </div>
-            <div>
-              <label>Arrive Place:
-                <input type="text" name="arriveLocation" value={form.arriveLocation} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="text" name="arriveLocation" value={form.arriveLocation} onChange={handleChange} required placeholder='Arrive Place' />
             </div>
           </div>
           <div className="mform-row">
-            <div>
-              <label>Departure Date:</label>
-              <div style={{width:"96%"}} className="static-field">static</div>
+            <div className='new'>
+              <div style={{width:"100%"}} className="static-field">static</div>
             </div>
-            <div>
-              <label>Arrive Date:</label>
-              <div style={{width:"96%"}} className="static-field">static</div>
+            <div className='new'> 
+              <div style={{width:"100%"}} className="static-field">static</div>
             </div>
           </div>
           <div className="mform-row">
-            <div>
-              <label>Departure Time:
-                <input style={{padding:"6px"}} type="time" name="departureTime" value={form.departureTime} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="time" name="departureTime" value={form.departureTime} onChange={handleChange} required placeholder='Departure Time' />
             </div>
-            <div>
-              <label>Arrive Time:
-                <input style={{padding:"6px"}} type="time" name="arriveTime" value={form.arriveTime} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="time" name="arriveTime" value={form.arriveTime} onChange={handleChange} required placeholder='Arrive Time' />
             </div>
           </div>
           <div className="mform-row">
-            <div>
-              <label>Name (Main):
-                <input type="text" name="name" value={form.name} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <select style={{width:"100%", borderRadius:"5px", border:"1px solid #b6b5b5", color:"#767676"}} name="travelType" value={form.travelType} onChange={handleChange} >
+                <option value="">Travel Type</option>
+                <option value="Hillstation">Hill Station</option>
+                <option value="Outstation">Outstation</option>
+                <option value="Offroading">Off-Roading</option>
+                <option value="Citytravel">City Travel</option>
+                <option value="Highwaytravel">Highway Travel</option>
+              </select>
             </div>
-            <div>
-              <label>Gender:
-                <input type="text" name="gender" value={form.gender} onChange={handleChange} required />
-              </label>
-            </div>
-          </div>
-          <div className="mform-row">
-            <div>
-              <label>Mobile No:
-                <input type="tel" name="mobile" value={form.mobile} onChange={handleChange} required />
-              </label>
-            </div>
-            <div>
-              <label>Alternate No:
-                <input type="tel" name="alternateMobile" value={form.alternateMobile} onChange={handleChange} />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="number" name="persons" value={form.persons} onChange={handleChange} required placeholder='NO. Of Persons'/>
             </div>
           </div>
           <div className="mform-row">
-            <div className="full-width">
-              <label>Email:
-                <input type="email" name="email" value={form.email} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="text" name="name" value={form.name} onChange={handleChange} required placeholder='Name (Main)' />
+            </div>
+            <div className='new'>
+              <input style={{width:"100%"}} type="text" name="gender" value={form.gender} onChange={handleChange} required placeholder='Gender'/>
             </div>
           </div>
           <div className="mform-row">
-            <div className="full-width">
-              <label>Address:
-                <input type="text" name="address" value={form.address} onChange={handleChange} required />
-              </label>
+            <div className='new'>
+              <input style={{width:"100%"}} type="tel" name="mobile" value={form.mobile} onChange={handleChange} required placeholder='Mobile No'/>
+            </div>
+            <div className='new'>
+              <input style={{width:"100%"}} type="tel" name="alternateMobile" value={form.alternateMobile} onChange={handleChange} placeholder='Alternate No'/>
+            </div>
+          </div>
+          <div className="mform-row">
+            <div className='new'>
+              <input style={{width:"100%"}} type="email" name="email" value={form.email} onChange={handleChange} required placeholder='Email'/>
+            </div>
+          </div>
+          <div className="mform-row">
+            <div className='new'>
+              <input style={{width:"100%"}} type="text" name="address" value={form.address} onChange={handleChange} required placeholder='Address'/>
+            </div>
+          </div>
+          <div className="mform-row">
+            <div className='new'>
+              <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676" }} name="proof" value={form.proof} onChange={handleChange} >
+                <option value="">Select Proof</option>
+                <option value="aadhar">Aadhar Card</option>
+                <option value="license">Driving License</option>
+              </select>
+            </div>
+            <div className='new'>
+              <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676" }} name="paymentMethod" value={form.paymentMethod} onChange={handleChange} >
+                <option value="">Payment Method</option>
+                <option value="cashon">Cash On</option>
+                <option value="onlinepay">Online Pay</option>
+              </select>
             </div>
           </div>
           <div className="modal-buttons">

@@ -1,15 +1,12 @@
 // src/Payment.js
-import './styles.css';
+import React from 'react';
 
-function Booking() {
-
+const Payment = () => {
   return (
-    <div className='paymentmain'>
-      <div className='paymentmenu'>
-      </div>
-      <div className='paymentcard'>hjvwxvwvwv</div>
+    <div>
+      <h1>Payment Page</h1>
     </div>
   );
-}
+};
 
-export default Booking;
+export default Payment;

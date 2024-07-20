@@ -7,8 +7,8 @@ import Vehicles from './Vehicles';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import Booking from './Booking';
-import Payment from './Payment';
 import Journey from './Journey';
+import Payment from './Payment';
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="vehicles" element={<Vehicles />} />
             <Route path="booking" element={<Booking />} />
-            <Route path="payment" element={<Payment />} />
             <Route path="journey" element={<Journey />} />
+            <Route path="payment" element={<Payment />} />
           </Route>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />

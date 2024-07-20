@@ -38,14 +38,6 @@ const Layout = () => {
             </li>
             <li>
               <span
-                className={path === '/payment' ? 'active' : ''}
-                onClick={() => navigate('/payment')}
-              >
-                Payment
-              </span>
-            </li>
-            <li>
-              <span
                 className={path === '/journey' ? 'active' : ''}
                 onClick={() => navigate('/journey')}
               >
