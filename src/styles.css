@@ -1128,15 +1128,18 @@ select.placeholder {
   font-size: 20px;
 }
 
-.verticalbar ul li span:hover {
+.verticalbar ul li span:hover,
+.verticalbar ul li.active span {
   background-color: #f4f4f4;
+  color: #132b75;
+  border: 1px soild #132b75;
 }
 
 .journey_cards{
   display: flex;
   flex-direction: column;
   width: 80%;
-  min-height:100vh;
+  min-height:86.5vh;
   margin-left: 20%;
   background-color: #f4f4f4;
   padding: 15px 15px 0px 15px;
@@ -1168,5 +1171,20 @@ select.placeholder {
   color: #132b75;
 
 }
+
+
+/* payment page style */
+
+.payment-container {
+  margin-top: 12rem;
+  text-align: center;
+}
+
+.payment-button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
 
 
