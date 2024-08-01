@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+// src/SignUp.js
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from './Slice/registrationSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 import img1 from '../src/img/img1.png';
 
@@ -16,6 +22,31 @@ function SignUp() {
   });
 
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
+  const registrationState = useSelector((state) => state.registration);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (registrationState.success) {
+      toast.success("Registration successful!", {
+        onClose: () => navigate('/signin')
+      });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        age: '',
+        gender: '',
+        mobile: '',
+        email: '',
+        address: '',
+        password: '',
+        confirmPassword: '',
+      });
+    }
+    if (registrationState.error) {
+      toast.error(`Error: ${registrationState.error}`);
+    }
+  }, [registrationState.success, registrationState.error, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,13 +82,25 @@ function SignUp() {
     e.preventDefault();
 
     if (validateForm()) {
-      console.log('Form submitted:', formData);
-      // Handle form submission logic
+      const payload = {
+        fName: formData.firstName,
+        lName: formData.lastName,
+        age: formData.age,
+        gender: formData.gender,
+        mobile: formData.mobile,
+        email: formData.email,
+        address: formData.address,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      };
+
+      dispatch(registerUser(payload));
     }
   };
 
   return (
     <div className="register-container">
+      <ToastContainer />
       <div className="register-img-container">
         <img src={img1} alt="Logo" className="register-logo" />
       </div>
@@ -174,6 +217,10 @@ function SignUp() {
           </div>
           <button type="submit" className="register-button">Sign Up</button>
         </form>
+        <div className="login-link">
+          <p>Already have an account? <Link to="/signin">Login here</Link></p>
+        </div>
+        {registrationState.loading && <p>Loading...</p>}
       </div>
     </div>
   );

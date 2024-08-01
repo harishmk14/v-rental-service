@@ -1,24 +1,39 @@
-// src/SignIn.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 import img1 from '../src/img/img1.png';
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from './Slice/loginSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignIn() {
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user, loading, error } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    if (user) {
+      toast.success('Login successful!', {
+        onClose: () => navigate('/'),
+      });
+    }
+    if (error) {
+      toast.error(error === 'Invalid credentials' ? 'Invalid credentials' : `Error: ${error}`);
+    }
+  }, [user, error, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (!mobile || !password) {
-      setError('Please fill in all fields.');
+      toast.error('Please fill in all fields.');
     } else {
-      setError('');
-      // Handle login logic here
+      dispatch(loginUser({ mobile, password }));
     }
   };
 
@@ -28,6 +43,7 @@ function SignIn() {
 
   return (
     <div className="login-container">
+      <ToastContainer />
       <div className="login-img-container">
         <img src={img1} alt="Logo" className="login-logo" />
       </div>
@@ -63,7 +79,7 @@ function SignIn() {
             </div>
             <a href="/forgot-password" className="forgot-password">Forgot Password?</a>
           </div>
-          {error && <div className="error">{error}</div>}
+          {loading && <p>Loading...</p>}
           <div className="horizontal-group buttons-group">
             <button type="submit" className="login-button">Login</button>
             <button type="button" className="create-account-button" onClick={handleSignUp}>Create Account</button>

@@ -1,4 +1,4 @@
-// src/features/home/homeSlice.js
+// src/slice/homeSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const homeSlice = createSlice({
