@@ -14,7 +14,8 @@ import Profile from './Profile';
 import ManageVehicle from './Managevehicle';
 import VehicleStatus from './Vehiclestatus';
 import Customers from './Customer';
-
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -28,9 +29,11 @@ function ScrollToTop() {
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
+        
           <Route index element={<Home />} />
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="booking" element={<Booking />} />

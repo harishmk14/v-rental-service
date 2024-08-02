@@ -1210,7 +1210,7 @@ select.placeholder {
   font-size: 16px;
 }
 
-/* Add user */
+/* Managevehiclas / add vehicles */
 
 .managev_sidebar{
   display: flex;
@@ -1232,11 +1232,28 @@ select.placeholder {
   background-color: #f4f4f4;
 }
 
-.box_fixed{
-  position:fixed!important;
-  z-index:1;
-  overflow:auto;
-  margin: 6px;
+/* vehiclemodal */
+
+.box_fixed {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  width: auto; 
+  height: 36rem; 
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 

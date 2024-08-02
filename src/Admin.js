@@ -24,6 +24,9 @@ const Admin = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     toast.success('Logout successful!');
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
 
   return (
@@ -31,7 +34,7 @@ const Admin = () => {
       <ToastContainer />
       <div className="navbar">
         <div className="logo">V-RENTAL</div>
-        <nav style={{marginLeft:"23rem"}}>
+        <nav style={{ marginLeft: "23rem" }}>
           <ul>
             <li>
               <span
@@ -67,7 +70,12 @@ const Admin = () => {
             </li>
           </ul>
         </nav>
-        <LogOut style={{cursor:"pointer", margin:"0px 0px 0px 400px"}} color='white' size={25} onClick={() => handleLogout}/>
+        <LogOut
+          style={{ cursor: "pointer", margin: "0px 0px 0px 400px" }}
+          color='white'
+          size={25}
+          onClick={handleLogout}
+        />
       </div>
       <Outlet />
     </>
