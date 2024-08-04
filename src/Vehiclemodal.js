@@ -117,10 +117,10 @@ const VehicleModal = ({ show, onClose }) => {
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
                 <option value="">Select</option>
-                <option value="bike">Bike</option>
-                <option value="car">Car</option>
-                <option value="van">Van</option>
-                <option value="bus">Bus</option>
+                <option value="Bike">Bike</option>
+                <option value="Car">Car</option>
+                <option value="Van">Van</option>
+                <option value="Bus">Bus</option>
               </select>
             </div>
           </div>
@@ -160,8 +160,8 @@ const VehicleModal = ({ show, onClose }) => {
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
                 <option value="">Select</option>
-                <option value="ac">AC</option>
-                <option value="non-ac">Non-AC</option>
+                <option value="AC">AC</option>
+                <option value="Non-AC">Non-AC</option>
               </select>
             </div>
           </div>
@@ -175,8 +175,8 @@ const VehicleModal = ({ show, onClose }) => {
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
                 <option value="">Select</option>
-                <option value="manual">Manual</option>
-                <option value="auto">Automatic</option>
+                <option value="Manual">Manual</option>
+                <option value="Auto">Automatic</option>
               </select>
             </div>
           </div>
@@ -190,9 +190,9 @@ const VehicleModal = ({ show, onClose }) => {
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
                 <option value="">Select</option>
-                <option value="petrol">Petrol</option>
-                <option value="diesel">Diesel</option>
-                <option value="electric">Electric</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
               </select>
             </div>
           </div>
@@ -271,8 +271,8 @@ const VehicleModal = ({ show, onClose }) => {
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
                 <option value="">Select</option>
-                <option value="toll">Toll</option>
-                <option value="no-toll">No Toll</option>
+                <option value="Toll">Toll</option>
+                <option value="No-Toll">No Toll</option>
               </select>
             </div>
           </div>
