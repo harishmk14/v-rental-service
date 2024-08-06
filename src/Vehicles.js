@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
-import CAR1 from '../src/img/Honda_Jazz.png'
-
 function Vehicles() {
   const dispatch = useDispatch();
   const { vehicles, status, error } = useSelector((state) => state.vehicleData);
@@ -93,7 +91,9 @@ function Vehicles() {
         <div className="vehicle-cards">
           {filteredVehicles.map((vehicle, index) => (
             <div className="vehicle-card" key={index}>
-              <img src={vehicle.uploadImage || CAR1} alt={vehicle.name} className="vehicle-image" />
+              <div style={{display:"flex",width:"17.5rem",height:"12.5rem"}}>
+              <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.name} className="vehicle-image" />
+              </div>
               <h2>{vehicle.brandName}</h2>
               <p className="vehicle-price">Rs. {vehicle.price} / Day</p>
               <p className="vehicle-reviews">{vehicle.star} ⭐/ {vehicle.review} Reviews</p>

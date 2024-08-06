@@ -3,7 +3,7 @@ import {toast } from 'react-toastify';
 
 import './styles.css';
 
-const VehicleModal = ({ show, onClose }) => {
+const VehicleModal = ({ show, onClose, status  }) => {
   
     const [brandName, setBrandName] = useState("");
     const [type, setType] = useState("");
@@ -90,7 +90,7 @@ const VehicleModal = ({ show, onClose }) => {
       <div className="box_fixed" style={{ display: "flex", flexDirection: "column", backgroundColor: "white", height: "36rem", borderRadius: "10px", boxShadow: "0 1px 6px 0 rgba(0, 0, 0, 0.2)", position: "relative" }}>
         <button onClick={onClose} style={{ position: "absolute", top: "10px", right: "10px", background: "transparent", border: "none", fontSize: "20px", cursor: "pointer", color: "#132b75" }}>&times;</button>
         <div style={{ display: "flex" }}>
-          <h1 style={{ textAlign: "center", color: "#132b75", width: "74rem" }}>Add Vehicle</h1>
+          <h1 style={{ textAlign: "center", color: "#132b75", width: "74rem" }}>{status === 'Add Vehicle' ? 'Add Vehicle' : 'Update Vehicle'}</h1>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: "20px", margin: "0px 30px 0px 30px" }}>
           {/* Form fields */}
@@ -302,7 +302,7 @@ const VehicleModal = ({ show, onClose }) => {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-          <button onClick={handleAdd} style={{ backgroundColor: "#132b75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", cursor: "pointer", marginRight: "10px",width:"5rem" }}>Add</button>
+          <button onClick={handleAdd} style={{ backgroundColor: "#132b75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", cursor: "pointer", marginRight: "10px",width:"5rem" }}>{status === 'Add Vehicle' ? 'Add' : 'Update'}</button>
           <button onClick={handleReset} style={{ backgroundColor: "#c7c6c6", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", cursor: "pointer",width:"5rem" }}>Reset</button>
         </div>
       </div>
