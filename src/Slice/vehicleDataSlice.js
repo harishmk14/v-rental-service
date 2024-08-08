@@ -1,11 +1,22 @@
-// src/Slice/vehicleDataSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+
 
 // Async thunk to fetch vehicle data
 export const fetchVehicles = createAsyncThunk('vehicles/fetchVehicles', async () => {
   const response = await axios.get('http://localhost:2000/cars/getall/car');
   return response.data;
+});
+
+// Async thunk to delete a vehicle
+export const deleteVehicle = createAsyncThunk('vehicles/deleteVehicle', async (id, { rejectWithValue, dispatch }) => {
+  try {
+    await axios.delete(`http://localhost:2000/cars/delete/${id}`);
+    dispatch(fetchVehicles());
+    return id; // Return the ID of the deleted vehicle
+  } catch (error) {
+    return rejectWithValue(error.response.data); // Return the error message from the server
+  }
 });
 
 // Slice for vehicle data
@@ -31,8 +42,15 @@ const vehicleDataSlice = createSlice({
       .addCase(fetchVehicles.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(deleteVehicle.fulfilled, (state, action) => {
+        state.vehicles = state.vehicles.filter(vehicle => vehicle.registrationNumber !== action.payload);
+      })
+      .addCase(deleteVehicle.rejected, (state, action) => {
+        state.error = action.payload || 'Failed to delete vehicle'; // Set error message from server or default
       });
-  },
+  }
+  
 });
 
 export default vehicleDataSlice.reducer;

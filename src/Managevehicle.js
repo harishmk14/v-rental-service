@@ -1,6 +1,8 @@
+// src/Managevehicle.js
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVehicles } from './Slice/vehicleDataSlice'; // Import the thunk
+import { fetchVehicles, deleteVehicle } from './Slice/vehicleDataSlice'; // Import the thunk
 import { ArrowUpNarrowWideIcon, CarFront, ChevronRight, IndianRupee, LandPlot, PlusIcon, Star, Armchair, Snowflake, Cog, Fuel, PaintBucket, Calendar, RectangleEllipsis, ArrowUpDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import Modal from './Vehiclemodal';
@@ -40,6 +42,10 @@ const ManageVehicle = () => {
   const handleUpdateClick = (vehicle) => {
     setSelectedVehicle(vehicle); // Set the selected vehicle for updating
     setShowModal(true);
+  };
+
+  const handleDeleteClick = (vehicle) => {
+    dispatch(deleteVehicle(vehicle._id));
   };
 
   const handleCloseModal = () => {
@@ -151,7 +157,7 @@ const ManageVehicle = () => {
                         </button>
                       )}
                       {status === 'Delete Vehicle' && (
-                        <button style={{ marginTop: '20px',padding:"10px",width:"6rem",borderRadius:"6px", color:"white",border:"none",backgroundColor:"#132b75", cursor:"pointer" }}>Delete</button>
+                        <button onClick={() => handleDeleteClick(vehicle)} style={{ marginTop: '20px',padding:"10px",width:"6rem",borderRadius:"6px", color:"white",border:"none",backgroundColor:"#132b75", cursor:"pointer" }}>Delete</button>
                       )}
                     </div>
                   </div>

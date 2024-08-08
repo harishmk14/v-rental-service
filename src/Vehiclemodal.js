@@ -1,89 +1,120 @@
-import React, { useState } from 'react';
-import {toast } from 'react-toastify';
+// /src/Vehiclemodal.js
 
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { addVehicle, updateVehicle } from './Slice/vehicleSlice';
 import './styles.css';
+import { fetchVehicles } from './Slice/vehicleDataSlice';
 
-const VehicleModal = ({ show, onClose, status  }) => {
+const VehicleModal = ({ show, onClose, status, vehicle }) => {
+  const dispatch = useDispatch();
+
+  const [brandName, setBrandName] = useState("");
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
+  const [seater, setSeater] = useState("");
+  const [acType, setAcType] = useState("");
+  const [gearType, setGearType] = useState("");
+  const [fuelType, setFuelType] = useState("");
+  const [color, setColor] = useState("");
+  const [registrationNo, setRegistrationNo] = useState("");
+  const [model, setModel] = useState("");
+  const [review, setReview] = useState("");
+  const [starRating, setStarRating] = useState("");
+  const [tollType, setTollType] = useState("");
+  const [range, setRange] = useState("");
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    if (status === 'Update Vehicle' && vehicle) {
+      console.log('Setting vehicle data:', vehicle); // Debugging line
+      setBrandName(vehicle.brandName);
+      setType(vehicle.type);
+      setPrice(vehicle.price);
+      setSeater(vehicle.seater);
+      setAcType(vehicle.acOrNonAc);
+      setGearType(vehicle.gearType);
+      setFuelType(vehicle.fuelType);
+      setColor(vehicle.color);
+      setRegistrationNo(vehicle.registrationNumber);
+      setModel(vehicle.model);
+      setReview(vehicle.review);
+      setStarRating(vehicle.star);
+      setTollType(vehicle.tollType);
+      setRange(vehicle.range);
+      setImage(null); // Assuming you handle image separately
+    }
+  }, [status, vehicle]);
+
+  const handleReset = () => {
+    setBrandName("");
+    setType("");
+    setPrice("");
+    setSeater("");
+    setAcType("");
+    setGearType("");
+    setFuelType("");
+    setColor("");
+    setRegistrationNo("");
+    setModel("");
+    setReview("");
+    setStarRating("");
+    setTollType("");
+    setRange("");
+    setImage(null);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('brandName', brandName);
+    formData.append('type', type);
+    formData.append('price', price);
+    formData.append('seater', seater);
+    formData.append('acOrNonAc', acType);
+    formData.append('gearType', gearType);
+    formData.append('fuelType', fuelType);
+    formData.append('color', color);
+    formData.append('registrationNumber', registrationNo);
+    formData.append('model', model);
+    formData.append('review', review);
+    formData.append('star', starRating);
+    formData.append('tollType', tollType);
+    formData.append('range', range);
+    if (image) {
+      formData.append('uploadImage', image);
+    }
   
-    const [brandName, setBrandName] = useState("");
-    const [type, setType] = useState("");
-    const [price, setPrice] = useState("");
-    const [seater, setSeater] = useState("");
-    const [acType, setAcType] = useState("");
-    const [gearType, setGearType] = useState("");
-    const [fuelType, setFuelType] = useState("");
-    const [color, setColor] = useState("");
-    const [registrationNo, setRegistrationNo] = useState("");
-    const [model, setModel] = useState("");
-    const [review, setReview] = useState("");
-    const [starRating, setStarRating] = useState("");
-    const [tollType, setTollType] = useState("");
-    const [range, setRange] = useState("");
-    const [image, setImage] = useState(null);
-  
-    const handleReset = () => {
-      setBrandName("");
-      setType("");
-      setPrice("");
-      setSeater("");
-      setAcType("");
-      setGearType("");
-      setFuelType("");
-      setColor("");
-      setRegistrationNo("");
-      setModel("");
-      setReview("");
-      setStarRating("");
-      setTollType("");
-      setRange("");
-      setImage(null);
-    };
-  
-    const handleAdd = async () => {
-        const formData = new FormData();
-        formData.append('brandName', brandName);
-        formData.append('type', type);
-        formData.append('price', price);
-        formData.append('seater', seater);
-        formData.append('acOrNonAc', acType);
-        formData.append('gearType', gearType);
-        formData.append('fuelType', fuelType);
-        formData.append('color', color);
-        formData.append('registrationNumber', registrationNo);
-        formData.append('model', model);
-        formData.append('review', review);
-        formData.append('star', starRating);
-        formData.append('tollType', tollType);
-        formData.append('range', range);
-        if (image) {
-          formData.append('uploadImage', image);
-        }
-      
-        try {
-          const response = await fetch('http://localhost:2000/cars/add/cars', {
-            method: 'POST',
-            body: formData,
-          });
-          
-          const data = await response.json();
-          
-          if (response.ok) {
-            console.log('Success:', data);
-            toast.success("Vehicle data added"); 
-            onClose();
-           
-            handleReset();
-       
-          } else {
-            throw new Error(data.message || "Failed to add vehicle data");
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          toast.error("Failed to add vehicle data");
-        }
-      };
-  
-    if (!show) return null;
+    try {
+      if (status === 'Add Vehicle') {
+        handleReset();
+        await dispatch(addVehicle(formData)).unwrap();
+        dispatch(fetchVehicles());
+        toast.success("Vehicle data added");
+      } else if (status === 'Update Vehicle' && vehicle && vehicle._id) { // Ensure you use `_id` if that's the property name
+        const updatedData = {
+          id: vehicle._id, // Use the correct property for ID
+          vehicleData: formData // Wrap formData in `vehicleData` key
+        };
+        await dispatch(updateVehicle(updatedData)).unwrap();
+        dispatch(fetchVehicles());
+        toast.success("Vehicle data updated");
+        onClose();
+        handleReset();
+      } else {
+        throw new Error('Vehicle data is missing for update');
+      }
+      onClose();
+      handleReset();
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("Failed to submit vehicle data");
+    }
+  };
+
+
+
+  if (!show) return null;
 
   return (
     <div className="modal-backdrop">
@@ -93,7 +124,6 @@ const VehicleModal = ({ show, onClose, status  }) => {
           <h1 style={{ textAlign: "center", color: "#132b75", width: "74rem" }}>{status === 'Add Vehicle' ? 'Add Vehicle' : 'Update Vehicle'}</h1>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: "20px", margin: "0px 30px 0px 30px" }}>
-          {/* Form fields */}
           {/* Brand Name */}
           <div style={{ display: "grid", justifyItems: "center" }}>
             <div style={{ display: "grid" }}>
@@ -176,7 +206,7 @@ const VehicleModal = ({ show, onClose, status  }) => {
               >
                 <option value="">Select</option>
                 <option value="Manual">Manual</option>
-                <option value="Auto">Automatic</option>
+                <option value="Automatic">Automatic</option>
               </select>
             </div>
           </div>
@@ -240,11 +270,11 @@ const VehicleModal = ({ show, onClose, status  }) => {
             <div style={{ display: "grid" }}>
               <label>Review</label>
               <input
-              type="number"
+                type="number"
                 placeholder="Enter review"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
-                style={{ width: "20rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", resize: "vertical" }}
+                style={{ width: "20rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5" }}
               />
             </div>
           </div>
@@ -270,9 +300,9 @@ const VehicleModal = ({ show, onClose, status  }) => {
                 onChange={(e) => setTollType(e.target.value)}
                 style={{ width: "21.4rem", borderRadius: "5px", padding: "10px", border: "1.5px solid #b6b5b5", color: "#827979" }}
               >
-                <option value="">Select</option>
-                <option value="Toll">Toll</option>
-                <option value="No-Toll">No Toll</option>
+                <option value="">Toll Type</option>
+                <option value="Toll">Toll </option>
+                <option value="No-Toll">No-Toll</option>
               </select>
             </div>
           </div>
@@ -281,7 +311,7 @@ const VehicleModal = ({ show, onClose, status  }) => {
             <div style={{ display: "grid" }}>
               <label>Range</label>
               <input
-                type="number"
+                type="text"
                 placeholder="Enter range"
                 value={range}
                 onChange={(e) => setRange(e.target.value)}
@@ -292,7 +322,7 @@ const VehicleModal = ({ show, onClose, status  }) => {
           {/* Image Upload */}
           <div style={{ display: "grid", justifyItems: "center" }}>
             <div style={{ display: "grid" }}>
-              <label>Image Upload</label>
+              <label>Upload Image</label>
               <input
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
@@ -302,8 +332,18 @@ const VehicleModal = ({ show, onClose, status  }) => {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-          <button onClick={handleAdd} style={{ backgroundColor: "#132b75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", cursor: "pointer", marginRight: "10px",width:"5rem" }}>{status === 'Add Vehicle' ? 'Add' : 'Update'}</button>
-          <button onClick={handleReset} style={{ backgroundColor: "#c7c6c6", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", cursor: "pointer",width:"5rem" }}>Reset</button>
+          <button
+            onClick={handleSubmit}
+            style={{ width: "10rem", backgroundColor: "#132b75", color: "white", padding: "10px", borderRadius: "5px", border: "none", marginRight: "10px", cursor: "pointer" }}
+          >
+            {status === 'Add Vehicle' ? 'Add' : 'Update'}
+          </button>
+          <button
+            onClick={handleReset}
+            style={{ width: "10rem", backgroundColor: "#6c757d", color: "white", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer" }}
+          >
+            Reset
+          </button>
         </div>
       </div>
     </div>
