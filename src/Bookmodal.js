@@ -86,10 +86,10 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
         </div>
         <div className="mform-row">
           <div className='new'>
-            <div style={{width:"100%"}} className="static-field">static</div>
+            <input type="date" name="startDate" style={{width:"100%"}} className="static-field"/>
           </div>
           <div className='new'> 
-            <div style={{width:"100%"}} className="static-field">static</div>
+          <input type="date" name="endDate" style={{width:"100%"}} className="static-field"/>
           </div>
         </div>
         <div className="mform-row">

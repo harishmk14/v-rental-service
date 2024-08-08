@@ -1,53 +1,19 @@
-// src/Booking.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
-import Modal from '../src/Bookmodal';
-import CAR1 from '../src/img/Honda_Jazz.png'
-import CAR2 from '../src/img/Volkswagen_Vento.png'
-import CAR3 from '../src/img/Nissan_GT-R.png'
-import CAR4 from '../src/img/MitsubishiASX.png'
-import BIKE1 from '../src/img/yamaha_r1.png'
-import BIKE2 from '../src/img/ducati_panigale.png'
-import BIKE3 from '../src/img/harley_street750.png'
-import BIKE4 from '../src/img/bmw_s1000rr.png'
-import VAN1 from '../src/img/ford_transit.png'
-import VAN2 from '../src/img/mercedes_sprinter.png'
-import VAN3 from '../src/img/ram_promaster.png'
-import VAN4 from '../src/img/nissan_nv3500.png'
-import BUS1 from '../src/img/mercedes_tourismo.png'
-import BUS2 from '../src/img/volvo_9700.png'
-import BUS3 from '../src/img/scania_touring.png'
-import BUS4 from '../src/img/man_lions_coach.png'
-import { Timer , Star , IndianRupee , MapPinned} from 'lucide-react';
+import Modal from './Bookmodal';
+import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';
 
 function Booking() {
-
-
-  const vehiclesData = [
-    // Cars
-    {type: "Car",name: "Honda Jazz",price: 2500,reviews: "23 Reviews", star: 4.5,src: CAR1,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Red", "2019", "Py02H0001", "Toll Free"], range:120},
-    {type: "Car",name: "Volkswagen Vento",price: 2700,reviews: "76 Reviews", star: 4.5,src: CAR2,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Blue", "2016", "Py02H0003", "Toll Free"], range:130},
-    {type: "Car",name: "Nissan GT-R",price: 4500,reviews: "42 Reviews", star: 4.5,src: CAR3,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Black", "2017", "Py02H0489", "Toll Free"], range:140},
-    {type: "Car",name: "Mitsubishi ASX",price: 3750,reviews: "35 Reviews", star: 4.5,src: CAR4,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["white", "2020", "Py02H2651", "Toll Free"], range:100},
-    // Bikes
-    {type: "Bike",name: "Yamaha YZF-R1",price: 1000,reviews: "19 Reviews", star: 4.5,src: BIKE1,features: ["2 Seats", "AC", "Manual", "Petrol"],additional: ["Multi", "2021", "Py02H8989", "Toll Free"], range:50},
-    {type: "Bike",name: "Ducati Panigale V4",price: 1800,reviews: "25 Reviews", star: 4.5,src: BIKE2,features: ["2 Seats", "AC", "Manual", "Petrol"],additional: ["Multi", "2024", "Py02H4561", "Toll Free"], range:40},
-    {type: "Bike",name: "Harley-Davidson 750",price: 1300,reviews: "34 Reviews", star: 4.5,src: BIKE3,features: ["2 Seats", "AC", "Manual", "Petrol"],additional: ["Black", "2020", "Py02H7534", "Toll Free"], range:30},
-    {type: "Bike",name: "BMW S1000RR",price: 2000,reviews: "29 Reviews", star: 4.5,src: BIKE4,features: ["2 Seats", "AC", "Manual", "Petrol"],additional: ["Red", "2022", "Py02H1594", "Toll Free"], range:20},
-    // Vans
-    {type: "Van",name: "Ford Transit",price: 9000,reviews: "40 Reviews", star: 4.5,src: VAN1,features: ["8 Seats", "AC", "Auto", "Diesel"],additional: ["white", "2020", "Py02H7894", "Toll Free"], range:150},
-    {type: "Van",name: "Mercedes-Benz Sprinter",price: 4500,reviews: "37 Reviews", star: 4.5,src: VAN2,features: ["8 Seats", "AC", "Auto", "Diesel"],additional: ["Black", "2021", "Py02H2751", "Toll Free"], range:150},
-    {type: "Van",name: "Ram ProMaster",price: 5100,reviews: "45 Reviews", star: 4.5,src: VAN3,features: ["8 Seats", "AC", "Auto", "Diesel"],additional: ["white", "2016", "Py02H4853", "Toll Free"], range:160},
-    {type: "Van",name: "Nissan NV3500",price: 6000,reviews: "30 Reviews", star: 4.5,src: VAN4,features: ["8 Seats", "AC", "Auto", "Diesel"],additional: ["Brown", "2020", "Py02H4586", "Toll Free"], range:170},
-    // Buses
-    {type: "Bus",name: "Mercedes-Benz Tourismo",price: 10000,reviews: "28 Reviews", star: 4.5,src: BUS1,features: ["50 Seats", "AC", "Auto", "Diesel"],additional: ["Black", "2018", "Py02H4851", "Toll Free"], range:300},
-    {type: "Bus",name: "Volvo 9700",price: 12000,reviews: "32 Reviews", star: 4.5,src: BUS2,features: ["50 Seats", "AC", "Auto", "Diesel"],additional: ["Sandle", "2020", "Py02H2648", "Toll Free"], range:400},
-    {type: "Bus",name: "Scania Touring",price: 12000,reviews: "25 Reviews", star: 4.5,src: BUS3,features: ["50 Seats", "AC", "Auto", "Diesel"],additional: ["Silver", "2020", "Py02H8642", "Toll Free"], range:500},
-    {type: "Bus",name: "MAN Lion's Coach",price: 15000,reviews: "35 Reviews", star: 4.5,src: BUS4,features: ["50 Seats", "AC", "Auto", "Diesel"],additional: ["White", "2020", "Py02H1548", "Toll Free"], range:700}
-  ];
-
+  const dispatch = useDispatch();
+  const { vehicles} = useSelector((state) => state.vehicleData);
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchVehicles());
+  }, [dispatch]);
 
   const handleBookClick = (vehicle) => {
     setSelectedVehicle(vehicle);
@@ -58,7 +24,6 @@ function Booking() {
     setShowModal(false);
     setSelectedVehicle(null);
   };
-
 
   const [form, setForm] = useState({
     vehicleType: '',
@@ -79,17 +44,18 @@ function Booking() {
   };
 
 
+
   return (
-    <div style={{backgroundColor:"#f4f4f4"}} className='booking_page'>
+    <div style={{ backgroundColor: "#f4f4f4" }} className='booking_page'>
       <div style={{ boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }} className='search_area'>
         <div>
-          <h1 style={{textAlign:"center", color:"#132b75"}}>Search Vehicle</h1>
-          </div>
+          <h1 style={{ textAlign: "center", color: "#132b75" }}>Search Vehicle</h1>
+        </div>
         <div className='search_row'>
-            <div className='search_col'>
-              <label style={{color:"#132b75"}}>
+          <div className='search_col'>
+            <label style={{ color: "#132b75" }}>  
               Vehicle Type:
-              <select style={{padding:"10px", borderRadius:"5px",width:"102%"}} name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
+              <select style={{ padding: "10px", borderRadius: "5px", width: "102%" }} name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
                 <option value="">Select a type</option>
                 <option value="bike">Bike</option>
                 <option value="car">Car</option>
@@ -97,88 +63,89 @@ function Booking() {
                 <option value="bus">Bus</option>
               </select>
             </label>
-            </div>
-            <div className='search_col'>
-              <label style={{color:"#132b75"}}>
+          </div>
+          <div className='search_col'>
+            <label style={{ color: "#132b75" }}>
               Number of Seats:
-              <input type="number" name="seats" value={form.seats} onChange={handleChange} required min="1" max="50"/>
-            </label>
-            </div>
-        </div>
-        <div className='search_row'>
-           <div className='search_col'>
-              <label style={{color:"#132b75"}}>
-              Departure Date:
-              <input type="date" name="startDate" value={form.startDate} onChange={handleChange} required/>
-              </label>
-            </div>
-            <div className='search_col'>
-            <label style={{color:"#132b75"}}>
-              Arrive Date:
-            <input type="date" name="endDate" value={form.endDate} onChange={handleChange} required/>
+              <input type="number" name="seats" value={form.seats} onChange={handleChange} required min="1" max="50" />
             </label>
           </div>
         </div>
         <div className='search_row'>
           <div className='search_col'>
-             <label style={{color:"#132b75"}}>
-              Departure Time:
-              <input type="time" name="startTime" value={form.startTime}  onChange={handleChange}  required/>
-             </label>
-            </div>
-            <div className='search_col'>
-            <label style={{color:"#132b75"}}>
-              Arrive Time:
-              <input type="time"  name="endTime"  value={form.endTime}  onChange={handleChange}  required />
+            <label style={{ color: "#132b75" }}>
+              Departure Date:
+              <input type="date" name="startDate" value={form.startDate} onChange={handleChange} required />
             </label>
           </div>
+          <div className='search_col'>
+            <label style={{ color: "#132b75" }}>
+              Arrive Date:
+              <input type="date" name="endDate" value={form.endDate} onChange={handleChange} required />
+            </label>
           </div>
+        </div>
+        <div className='search_row'>
+          <div className='search_col'>
+            <label style={{ color: "#132b75" }}>
+              Departure Time:
+              <input type="time" name="startTime" value={form.startTime} onChange={handleChange} required />
+            </label>
+          </div>
+          <div className='search_col'>
+            <label style={{ color: "#132b75" }}>
+              Arrive Time:
+              <input type="time" name="endTime" value={form.endTime} onChange={handleChange} required />
+            </label>
+          </div>
+        </div>
         <div className='search_driver'>
-        <label style={{color:"#132b75"}}>Driver:</label>
-        <div className='driver_rad'>
-              <label style={{color:"#132b75"}}>
-                <input type="radio"  name="driver" value="with-driver"  checked={form.driver === 'with-driver'}  onChange={handleChange}/>
-                With Driver
-              </label>
-        </div>
-        <div className='driver_rad'>
-              <label style={{color:"#132b75"}}> 
-                <input type="radio"  name="driver" value="without-driver" checked={form.driver === 'without-driver'}  onChange={handleChange}/>
-                Without Driver
-              </label>
-        </div>
+          <label style={{ color: "#132b75" }}>Driver:</label>
+          <div className='driver_rad'>
+            <label style={{ color: "#132b75" }}>
+              <input type="radio" name="driver" value="with-driver" checked={form.driver === 'with-driver'} onChange={handleChange} />
+              With Driver
+            </label>
+          </div>
+          <div className='driver_rad'>
+            <label style={{ color: "#132b75" }}>
+              <input type="radio" name="driver" value="without-driver" checked={form.driver === 'without-driver'} onChange={handleChange} />
+              Without Driver
+            </label>
+          </div>
         </div>
         <div className='search_button'>
-            <button style={{color:"white", padding:"10px", width:"100px", borderRadius:"5px",backgroundColor:"#132b75"}} type="submit">Search</button>
+          <button style={{ color: "white", padding: "10px", width: "100px", borderRadius: "5px", backgroundColor: "#132b75", border: "none", cursor: "pointer" }} type="submit">Search</button>
         </div>
       </div>
-      <div style={{padding:'20px',gap:'20px'}} className='bookv-cards'>
-          {vehiclesData.map((vehicle, index) => (
-            <div className="bookv-card" key={index}>
-              <img src={vehicle.src} alt={vehicle.name}/>
-              <div className='portion1'> 
-              <h2>{vehicle.name}</h2>
-              <p ><IndianRupee color="#132b75" size={16} /> {vehicle.price} / Day</p>
-              <p ><Star color="#132b75" size={16} /> {vehicle.star} / {vehicle.reviews}</p>
-              <p ><MapPinned color="#132b75" size={16} /> Extra km fare Rs. {vehicle.price/100} /km after {vehicle.range} kms</p>
-              <p > <Timer color="#132b75" size={16} /> Extra time fare Rs. {vehicle.price/25} per 30 mins after 24hr</p>
+      <div style={{ padding: '20px', gap: '20px' }} className='bookv-cards'>
+        {vehicles.map((vehicle, index) => (
+          <div className="bookv-card" key={index}>
+            <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
+            <div className='portion1'>
+              <h2>{vehicle.brandName}</h2>
+              <p><IndianRupee color="#132b75" size={16} /> {vehicle.price} / Day</p>
+              <p><Star color="#132b75" size={16} /> {vehicle.star} / {vehicle.review}</p>
+              <p><MapPinned color="#132b75" size={16} /> Extra km fare Rs. {vehicle.price / 100} /km after {vehicle.range} kms</p>
+              <p><Timer color="#132b75" size={16} /> Extra time fare Rs. {vehicle.price / 25} per 30 mins after 24hr</p>
               <div className="bookv-features">
-                {vehicle.features.map((feature, i) => (
-                  <div className="feature1" key={i}>{feature}</div>
-                ))}
-              </div>
-              </div>
-              <div style={{marginLeft:"40px", marginTop:"40px"}}>
-                <p style={{fontSize:"40px", color:"#132b75" , fontFamily:"sans-serif", margin:"10px"}}><IndianRupee color="#132b75" size={30} />{vehicle.price}</p>
-                <p style={{color:"#132b75",fontFamily:"sans-serif", margin:"10px"}}>+ ₹{vehicle.price/8 + 3} Taxes & Charges </p>
-                <button type="submit" style={{backgroundColor:"#132b75", color:"white", borderRadius:"6px",fontSize:"16px",width:"7rem",padding:"10px",margin:"20px",cursor:"pointer",fontFamily:"sans-serif"}}
-                onClick={() => handleBookClick(vehicle)}>
-                  Book</button>
+                <div className="feature1">{vehicle.seater} Seats</div>
+                <div className="feature1">{vehicle.acOrNonAc}</div>
+                <div className="feature1">{vehicle.gearType}</div>
+                <div className="feature1">{vehicle.fuelType}</div>
               </div>
             </div>
-          ))}
-        </div>
-        <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} />
+            <div style={{ marginLeft: "40px", marginTop: "40px" }}>
+              <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}><IndianRupee color="#132b75" size={30} />{vehicle.price}</p>
+              <p style={{ color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>+ ₹{vehicle.price / 8 + 3} Taxes & Charges</p>
+              <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
+                onClick={() => handleBookClick(vehicle)}>
+                Book</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} />
     </div>
   );
 }

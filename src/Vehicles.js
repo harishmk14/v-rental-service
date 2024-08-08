@@ -5,7 +5,7 @@ import { fetchVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
 function Vehicles() {
   const dispatch = useDispatch();
-  const { vehicles, status, error } = useSelector((state) => state.vehicleData);
+  const { vehicles} = useSelector((state) => state.vehicleData);
 
   const [filteredVehicles, setFilteredVehicles] = useState([]);
 
@@ -56,8 +56,6 @@ function Vehicles() {
     setFilteredVehicles(filtered);
   };
 
-  if (status === 'loading') return <div>Loading...</div>;
-  if (status === 'failed') return <div>Error: {error}</div>;
 
   return (
     <div className="vehicles-page">
