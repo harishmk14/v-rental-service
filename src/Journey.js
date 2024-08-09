@@ -1,11 +1,9 @@
 // src/Journey.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
-import CAR1 from '../src/img/Honda_Jazz.png';
-import CAR2 from '../src/img/Volkswagen_Vento.png'
-import CAR3 from '../src/img/Nissan_GT-R.png'
-import CAR4 from '../src/img/MitsubishiASX.png'
 import { Armchair, Snowflake, Cog, Fuel, PaintBucket, Calendar, RectangleEllipsis, ArrowUpDown } from 'lucide-react';
 
 function Journey() {
@@ -13,13 +11,12 @@ function Journey() {
   const initialStatus = location.state?.status || 'Journey Starts';
   const [status, setStatus] = useState(initialStatus);
 
-  const vehiclesData = [
-    // Cars
-    {type: "Car",name: "Honda Jazz",price: 2500,reviews: "23 Reviews", star: 4.5,src: CAR1,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Red", "2019", "Py02H0001", "Toll Free"], range:120},
-    {type: "Car",name: "Volkswagen Vento",price: 2700,reviews: "76 Reviews", star: 4.5,src: CAR2,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Blue", "2016", "Py02H0003", "Toll Free"], range:130},
-    {type: "Car",name: "Nissan GT-R",price: 4500,reviews: "42 Reviews", star: 4.5,src: CAR3,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["Black", "2017", "Py02H0489", "Toll Free"], range:140},
-    {type: "Car",name: "Mitsubishi ASX",price: 3750,reviews: "35 Reviews", star: 4.5,src: CAR4,features: ["4 Seats", "AC", "Auto", "Petrol"],additional: ["white", "2020", "Py02H2651", "Toll Free"], range:100}
-  ];
+  const dispatch = useDispatch();
+  const vehiclesData = useSelector((state) => state.vehicleData.vehicles);
+
+  useEffect(() => {
+    dispatch(fetchVehicles());
+  }, [dispatch]);
 
   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
@@ -49,10 +46,10 @@ function Journey() {
         {vehiclesData.map((vehicle, index) => (
           <div className='journey_card' key={index}>
             <div style={{ width: "25%" }} className='journey_card_row'>
-              <img src={vehicle.src} alt={vehicle.name} />
+              <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
             </div>
             <div style={{ width: "25%" }} className='journey_card_row'>
-              <h2 style={{ color: "#132b75" }}>{vehicle.name}</h2>
+              <h2 style={{ color: "#132b75" }}>{vehicle.brandName}</h2>
               <div style={{ display: "flex", paddingBottom: "15px" }}>
                 <div style={{ display: "flex", marginTop: "5px", flexDirection: "column", rowGap: "20px" }}>
                   <Armchair color="#132b75" size={16} />
@@ -61,9 +58,10 @@ function Journey() {
                   <Fuel color="#132b75" size={16} />
                 </div>
                 <div style={{ display: "flex", paddingLeft: "15px", flexDirection: "column", rowGap: "13px" }}>
-                  {vehicle.features.map((feature, i) => (
-                    <p style={{ margin: "0px", color: "#132b75" }} key={i}>{feature}</p>
-                  ))}
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.seater}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.acOrNonAc}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.gearType}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.fuelType}</p>
                 </div>
                 <div style={{ display: "flex", marginTop: "5px", flexDirection: "column", rowGap: "20px", paddingLeft: "25px" }}>
                   <PaintBucket color="#132b75" size={16} />
@@ -72,9 +70,10 @@ function Journey() {
                   <ArrowUpDown color="#132b75" size={16} />
                 </div>
                 <div style={{ display: "flex", paddingLeft: "15px", flexDirection: "column", rowGap: "13px" }}>
-                  {vehicle.additional.map((additional, i) => (
-                    <p style={{ margin: "0px", color: "#132b75" }} key={i}>{additional}</p>
-                  ))}
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.color}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.model}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.registrationNumber}</p>
+                  <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.tollType}</p>
                 </div>
               </div>
             </div>

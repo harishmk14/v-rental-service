@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 // Async thunk to fetch vehicle data
@@ -13,6 +14,7 @@ export const deleteVehicle = createAsyncThunk('vehicles/deleteVehicle', async (i
   try {
     await axios.delete(`http://localhost:2000/cars/delete/${id}`);
     dispatch(fetchVehicles());
+    toast.success("Vehicle data deleted");
     return id; // Return the ID of the deleted vehicle
   } catch (error) {
     return rejectWithValue(error.response.data); // Return the error message from the server

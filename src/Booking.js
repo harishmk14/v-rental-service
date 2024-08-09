@@ -7,7 +7,7 @@ import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';
 
 function Booking() {
   const dispatch = useDispatch();
-  const { vehicles} = useSelector((state) => state.vehicleData);
+  const {vehicles} = useSelector((state) => state.vehicleData);
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
 
