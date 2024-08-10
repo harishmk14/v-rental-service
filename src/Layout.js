@@ -72,7 +72,7 @@ const Layout = () => {
             <div className="profile-dropdown">
               <CircleUserRound style={{ color: "white" }} />
               <div className="dropdown-content">
-                <span onClick={() => navigate('/profile')}>Profile</span>
+                <span onClick={() => navigate('/userprofile')}>Profile</span>
                 <span onClick={handleLogout}>Logout</span>
               </div>
             </div>

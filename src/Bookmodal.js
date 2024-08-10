@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addBooking } from './Slice/bookingSlice'; 
-import { toast } from 'react-toastify';// Adjust the import path as necessary
+import { toast } from 'react-toastify'; // Adjust the import path as necessary
 import './styles.css';
 
 const Bookmodal = ({ show, onClose, vehicle }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
-
+  // Initialize form state
   const [form, setForm] = useState({
     departurePlace: '',
     arrivelPlace: '',
     startDate: '',
-    endDate:'',
+    endDate: '',
     startTime: '',
     endTime: '',
     travalType: '',
@@ -26,9 +25,20 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     alternateNo: '',
     email: '',
     address: '',
-    proof:'',
-    paymentMethod: ''
+    proof: '',
+    paymentMethod: '',
+    carNumber: vehicle?.registrationNumber || '' // Set carNumber based on vehicle prop
   });
+
+  // Update carNumber if vehicle prop changes
+  useEffect(() => {
+    if (vehicle?.registrationNumber) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        carNumber: vehicle.registrationNumber
+      }));
+    }
+  }, [vehicle]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +59,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
         } else if (form.paymentMethod === 'onlinepay') {
           navigate('/payment');
         }
-        resetForm(); 
+        resetForm();
         onClose();
       })
       .catch((err) => {
@@ -63,7 +73,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       departurePlace: '',
       arrivelPlace: '',
       startDate: '',
-      endDate:'',
+      endDate: '',
       startTime: '',
       endTime: '',
       travalType: '',
@@ -74,22 +84,20 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       alternateNo: '',
       email: '',
       address: '',
-      proof:'',
-      paymentMethod: ''
+      proof: '',
+      paymentMethod: '',
+      carNumber: vehicle?.registrationNumber || ''
     });
   };
-
-
-
 
   if (!show) {
     return null;
   }
-
   return (
     <div className="modal-backdrop">
       <div className="modal-content">
         <h2 className="modal-title">{`Book ${vehicle.brandName}`}</h2>
+
         <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", marginTop:"20px", rowGap:"15px"}}>
           <div className="mform-row">
             <div className='new'>

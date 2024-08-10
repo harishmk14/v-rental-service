@@ -13,6 +13,7 @@ import Admin from './Admin';
 import Profile from './Profile';
 import ManageVehicle from './Managevehicle';
 import VehicleStatus from './Vehiclestatus';
+import Userprofile from './Userprofile';
 import Customers from './Customer';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -39,6 +40,7 @@ function App() {
           <Route path="booking" element={<Booking />} />
           <Route path="journey" element={<Journey />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="userprofile" element={<Userprofile />} />
         </Route>
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />

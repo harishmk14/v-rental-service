@@ -1257,4 +1257,29 @@ select.placeholder {
 }
 
 
+/* userprofile */
+
+
+.mine {
+  display: flex;
+  flex-direction: column;
+  margin-left:8rem;
+  margin-top: 1rem;
+  row-gap: 20px;
+}
+
+.upc {
+     font-size: 22px;
+     font-weight: bold;
+}
+
+.upcc {
+  font-size: 22px;
+}
+
+
+
+
+
+
 
