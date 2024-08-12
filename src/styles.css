@@ -425,11 +425,6 @@ select.placeholder {
   margin-top: 10px;
 }
 
-.renttest {
-  display: flex;
-  justify-content: center;
-}
-
 .vehicle-main {
   display: flex;
   flex-direction: column;
@@ -1276,6 +1271,8 @@ select.placeholder {
 .upcc {
   font-size: 22px;
 }
+
+
 
 
 

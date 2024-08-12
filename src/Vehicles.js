@@ -34,28 +34,18 @@ function Vehicles() {
 
   const applyFilters = () => {
     let filtered = vehicles;
-
+  
     if (filters.price) {
       const priceLimit = parseInt(filters.price);
       filtered = filtered.filter(vehicle => vehicle.price <= priceLimit);
     }
-
-    if (filters.brand) {
-      filtered = filtered.filter(vehicle => vehicle.name.toLowerCase().includes(filters.brand.toLowerCase()));
-    }
-
+  
     if (filters.type) {
       filtered = filtered.filter(vehicle => vehicle.type === filters.type);
     }
-
-    if (filters.rating) {
-      const ratingLimit = parseInt(filters.rating);
-      filtered = filtered.filter(vehicle => parseInt(vehicle.reviews.split(" ")[0]) >= ratingLimit);
-    }
-
+  
     setFilteredVehicles(filtered);
   };
-
 
   return (
     <div className="vehicles-page">
@@ -77,13 +67,6 @@ function Vehicles() {
             <option value="Van">Van</option>
             <option value="Bus">Bus</option>
           </select>
-          <select name="rating" value={filters.rating} onChange={handleFilterChange}>
-            <option value="">All Ratings</option>
-            <option value="10">10+ Reviews</option>
-            <option value="20">20+ Reviews</option>
-            <option value="30">30+ Reviews</option>
-            <option value="40">40+ Reviews</option>
-          </select>
           <button onClick={applyFilters}>Apply Filters</button>
         </div>
         <div className="vehicle-cards">
@@ -100,9 +83,6 @@ function Vehicles() {
                   <div className="feature">{vehicle.acOrNonAc}</div>
                   <div className="feature">{vehicle.gearType}</div>
                   <div className="feature">{vehicle.fuelType}</div>
-              </div>
-              <div className="renttest">
-              <button className="test-button">Testimonial</button>
               </div>
             </div>
           ))}

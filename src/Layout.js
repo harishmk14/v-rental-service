@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,24 +6,36 @@ import { logoutUser } from './Slice/loginSlice';
 import { CircleUserRound } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthModal from './Authmodal'; // Import the AuthModal component
 
 const Layout = () => {
+  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.login);
 
-  useEffect(() => {
-    if (!user) {
-      // Ensure UI updates when user logs out
-    }
-  }, [user]);
-
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser()); // Dispatch the logout action
     toast.success('Logout successful!');
+    navigate('/'); // Navigate to home page on logout
+  };
+
+  const handleNavigation = useCallback((path) => {
+    if (user) {
+      navigate(path);
+    } else {
+      if (path === '/booking' || path === '/journey') {
+        setShowModal(true); // Show the modal for specific pages if the user is not logged in
+      } else {
+        navigate(path); // Navigate to other paths directly
+      }
+    }
+  }, [navigate, user]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -36,7 +48,7 @@ const Layout = () => {
             <li>
               <span
                 className={path === '/' ? 'active' : ''}
-                onClick={() => navigate('/')}
+                onClick={() => handleNavigation('/')}
               >
                 Home
               </span>
@@ -44,7 +56,7 @@ const Layout = () => {
             <li>
               <span
                 className={path === '/vehicles' ? 'active' : ''}
-                onClick={() => navigate('/vehicles')}
+                onClick={() => handleNavigation('/vehicles')}
               >
                 Vehicles
               </span>
@@ -52,7 +64,7 @@ const Layout = () => {
             <li>
               <span
                 className={path === '/booking' ? 'active' : ''}
-                onClick={() => navigate('/booking')}
+                onClick={() => handleNavigation('/booking')}
               >
                 Booking
               </span>
@@ -60,7 +72,7 @@ const Layout = () => {
             <li>
               <span
                 className={path === '/journey' ? 'active' : ''}
-                onClick={() => navigate('/journey')}
+                onClick={() => handleNavigation('/journey')}
               >
                 Your Journey
               </span>
@@ -89,6 +101,7 @@ const Layout = () => {
         </div>
       </div>
       <Outlet />
+      {showModal && <AuthModal onClose={handleCloseModal} />}
     </>
   );
 };

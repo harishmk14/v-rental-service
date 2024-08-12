@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import {FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 function Home() {
+
+
   return (
     <div className="home">
       <div className="main-content">

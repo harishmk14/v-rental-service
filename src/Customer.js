@@ -1,6 +1,116 @@
+import React from 'react';
+
 const Customers = () => {
-    return <div>Customers Page</div>;
-  };
-  
-  export default Customers;
-  
+  return (
+    <div>
+      <p>Vehicle Status </p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status </p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+      <p>Vehicle Status Page</p>
+
+      </div>
+  );
+};
+
+export default Customers;

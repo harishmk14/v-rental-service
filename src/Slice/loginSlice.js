@@ -6,6 +6,7 @@ import axios from 'axios';
 export const loginUser = createAsyncThunk('login/loginUser', async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.post('http://localhost:2000/api/user/login', userData);
+    localStorage.setItem('loggedInUserId', response.data.user._id);
     return response.data;
   } catch (error) {
     // Log the error details for debugging
