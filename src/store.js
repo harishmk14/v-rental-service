@@ -7,6 +7,8 @@ import vehicleReducer from './Slice/vehicleSlice';
 import vehicleDataReducer from './Slice/vehicleDataSlice'; // Import the new reducer
 import bookingReducer  from './Slice/bookingSlice';
 import userReducer from './Slice/userSlice';
+import customerReducer from './Slice/customerSlice';
+import adminReducer from './Slice/adminSlice';
 
 const store = configureStore({
   reducer: {
@@ -17,6 +19,8 @@ const store = configureStore({
     vehicleData: vehicleDataReducer, // Add it here
     booking: bookingReducer,
     user: userReducer,
+    customers: customerReducer,
+    admin: adminReducer,
   },
 });
 

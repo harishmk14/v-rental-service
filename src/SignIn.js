@@ -5,17 +5,23 @@ import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from './Slice/loginSlice';
+import { adminLogin } from './Slice/adminSlice'; // Import adminLogin action
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserCog } from 'lucide-react';
+import AdminModal from './AdminModal';
 
 function SignIn() {
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user, loading, error } = useSelector((state) => state.login);
+  const { admin, error: adminError } = useSelector((state) => state.admin);
 
   useEffect(() => {
     if (user) {
@@ -28,6 +34,17 @@ function SignIn() {
     }
   }, [user, error, navigate]);
 
+  useEffect(() => {
+    if (admin) {
+      toast.success('Admin login successful!', {
+        onClose: () => setIsAdminModalOpen(false),
+      });
+    }
+    if (adminError) {
+      toast.error(adminError === 'Invalid admin credentials' ? 'Invalid admin credentials' : `Error: ${adminError}`);
+    }
+  }, [admin, adminError]);
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (!mobile || !password) {
@@ -37,12 +54,21 @@ function SignIn() {
     }
   };
 
+  const handleAdminLogin = ({ adminId, adminPassword }) => {
+    // Dispatch the login action
+    dispatch(adminLogin({ adminId, adminPassword }));
+  };
+
   const handleSignUp = () => {
     navigate('/signup');
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" style={{ position: 'relative', minHeight: '100vh' }}>
+      <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+        <UserCog size={30} style={{ padding: '5px', backgroundColor: '#132b75', color: 'white', border: 'none', borderRadius: '50%', cursor: 'pointer' }} onClick={() => setIsAdminModalOpen(true)} />
+      </div>
+      <AdminModal isOpen={isAdminModalOpen} onClose={() => setIsAdminModalOpen(false)} onLogin={handleAdminLogin} />
       <ToastContainer />
       <div className="login-img-container">
         <img src={img1} alt="Logo" className="login-logo" />
