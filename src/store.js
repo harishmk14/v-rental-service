@@ -9,6 +9,7 @@ import bookingReducer  from './Slice/bookingSlice';
 import userReducer from './Slice/userSlice';
 import customerReducer from './Slice/customerSlice';
 import adminReducer from './Slice/adminSlice';
+import vehicleStatusReducer from './Slice/vehicleStatusSlice'
 
 const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
     user: userReducer,
     customers: customerReducer,
     admin: adminReducer,
+    vehicleStatus: vehicleStatusReducer,
   },
 });
 

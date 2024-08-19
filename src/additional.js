@@ -1,56 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookings } from './Slice/vehicleStatusSlice'; // adjust the path as necessary
+import { CalendarArrowDown, CalendarArrowUp, Car, Phone, RectangleEllipsis, User } from 'lucide-react';
 
-const Usermodal = ({ show, onClose }) => {
-  const [formData, setFormData] = useState({
-    fName: '',
-    lName: '',
-    age: '',
-    gender: '',
-    mobile: '',
-    address: '',
-    email: '',
-    password: '',
-  });
+const VehicleStatus = () => {
+  const dispatch = useDispatch();
+  const { bookings, loading, error } = useSelector((state) => state.vehicleStatus);
 
-  const [errors, setErrors] = useState({});
+  useEffect(() => {
+    dispatch(fetchBookings());
+  }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add validation logic here
-    // If valid, proceed with form submission
-  };
-
-  if (!show) {
-    return null;
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal-content">
-        <h2 className="modal-title">Update Information</h2>
-
-        <form style={{ width: '60rem' }} onSubmit={handleSubmit}>
-          {/* ...form fields... */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button type="submit" className="register-button" style={{ width: '8rem', margin: '0' }}>
-              Update
-            </button>
-            <button type="button" style={{backgroundColor:"#6c757d",color:"white",padding:"8px",width:"5rem",borderRadius:"5px", border:"none"}} onClick={onClose}>
-              Cancel
-            </button>
+    <div style={{ display: "flex", flexDirection: "column", backgroundColor: "#f4f4f4", width: "93rem", height: "87vh", padding: "0 16px 16px 15px" }}>
+      {bookings.map((booking, index) => (
+        <div key={index} style={{ display: "flex", width: "93rem", height: "6rem" }}>
+          <div style={{ display: "flex", backgroundColor: "white", width: "93rem", height: "5rem", marginTop: "1rem", borderRadius: "10px", boxShadow: "0 1px 6px 0 rgba(0, 0, 0, 0.2)" }}>
+            <div className='vsdfg'>
+              <Car size={25} />
+              <RectangleEllipsis size={25} />
+            </div>
+            <div className='vsd'>
+              <span>Vehicle: {booking.travalType} </span>
+              <span>Reg no: {booking.mobile} </span>
+            </div>
+            <div className='vsdf'>
+              <span>Start Date: {booking.startDate}</span>
+              <span>End Date: {booking.endDate}</span>
+            </div>
+            <div className='vsdfg'>
+              <CalendarArrowUp size={23} />
+              <CalendarArrowDown size={23} />
+            </div>
+            <div className='vsdf'>
+              <User size={25} />
+              <Phone size={22} />
+            </div>
+            <div className='vsd'>
+              <span>Name: {booking.name}</span>
+              <span>Mob No: {booking.mobile}</span>
+            </div>
+            <div style={{ display: "flex", width: "30rem", alignItems: "center", gap: "20px" }}>
+              <button className='but' style={{ backgroundColor: "#132b75" }}>Start</button>
+              <div style={{ display: "flex", backgroundColor: "#f4f4f4", width: "8.5rem", height: "3rem", borderRadius: "6px", justifyContent: "center", alignItems: "center" }}>2D:8H:20M</div>
+              <button className='but' style={{ backgroundColor: "red" }}>Stop</button>
+              <button className='but' style={{ backgroundColor: "#22ff22" }}>Completed</button>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default Usermodal;
+export default VehicleStatus;
