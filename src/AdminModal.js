@@ -24,7 +24,7 @@ function AdminModal({ isOpen, onClose, onLogin }) {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content" style={{height:"330px"}}>
         <h1 style={{ color: "#132b75" }}>Admin Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
