@@ -1314,7 +1314,7 @@ select.placeholder {
 .vsd {
   display: flex;
   width: 7rem;
-  height: 5rem;
+  min-height: 5rem;
   flex-direction: column;
 }
 
@@ -1327,7 +1327,7 @@ select.placeholder {
 .vsdf {
   display: flex;
   width: 12rem;
-  height: 5rem;
+  min-height: 5rem;
   flex-direction: column;
   justify-content:end;
 }
@@ -1350,7 +1350,7 @@ select.placeholder {
 .vsdfg {
   display: flex;
   width: 2rem;
-  height: 5rem;
+  min-height: 5rem;
   flex-direction: column;
   justify-content: center;
   align-items: end;
