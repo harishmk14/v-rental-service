@@ -54,9 +54,9 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       .unwrap()
       .then(() => {
         toast.success('Booking Details Submitted!');
-        if (form.paymentMethod === 'cashon') {
+        if (form.paymentMethod === 'Cash On') {
           navigate('/journey', { state: { status: 'Pending' } });
-        } else if (form.paymentMethod === 'onlinepay') {
+        } else if (form.paymentMethod === 'Online Pay') {
           navigate('/payment');
         }
         resetForm();
@@ -173,10 +173,10 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
             <div className='new'>
               <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="proof" value={form.proof} onChange={handleChange} required>
                 <option value="">Select Proof</option>
-                <option value="aadhar">Aadhar</option>
-                <option value="passport">Passport</option>
-                <option value="drivinglicense">Driving License</option>
-                <option value="voterid">Voter ID</option>
+                <option value="Aadhar">Aadhar</option>
+                <option value="Passport">Passport</option>
+                <option value="Driving License">Driving License</option>
+                <option value="Voter Id">Voter ID</option>
               </select>
             </div>
           </div>
@@ -184,8 +184,8 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
             <div className='new'>
             <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="paymentMethod" value={form.paymentMethod} onChange={handleChange} required>
                 <option value="">Select Payment Method</option>
-                <option value="cashon">Cash On</option>
-                <option value="onlinepay">Online Pay</option>
+                <option value="Cash On">Cash On</option>
+                <option value="Online Pay">Online Pay</option>
               </select>
             </div>
           </div>

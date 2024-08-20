@@ -77,7 +77,7 @@ const ManageVehicle = () => {
 
       <div className="managev_cards">
         {status === 'Add Vehicle' && (
-          <div style={{ display: "flex", width: "74.7rem", justifyContent: "end", backgroundColor: "#f4f4f4", position: "fixed", zIndex: "1", overflow: "auto", marginLeft: "10px" }}>
+          <div style={{ display: "flex", width: "74.7rem", justifyContent: "end", position: "fixed", zIndex: "1", overflow: "auto", marginLeft: "10px" }}>
             <div style={{ display: "flex", height: "3rem", width: "3rem", backgroundColor: "#132b75", borderRadius: "10px", boxShadow: "0 1px 6px 0 rgba(0, 0, 0, 0.2)", margin: "15px 5px 7.5px 0", alignItems: "center", justifyContent: "center" }}>
               <PlusIcon color="white" size={30} style={{ cursor: "pointer" }} onClick={handleplusClick} />
             </div>
