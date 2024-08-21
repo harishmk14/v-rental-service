@@ -32,6 +32,22 @@ const VehicleStatus = () => {
     dispatch(fetchBookings());
   }, [dispatch]);
 
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-GB', options).replace(/\//g, '-');
+  };
+
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+    return `${hours}:${minutesFormatted} ${ampm}`;
+  };
+
   const toggleDropdown = (index) => {
     setDropdownVisible(dropdownVisible === index ? null : index);
   };
@@ -95,10 +111,10 @@ const VehicleStatus = () => {
               <span>End Time </span>
             </div>
             <div className='vsdf'>
-              <span>{booking.startDate}</span>
-              <span>{booking.endDate}</span>
-              <span>{booking.startTime}</span>
-              <span>{booking.endTime}</span>
+              <span>{formatDate(booking.startDate)}</span>
+              <span>{formatDate(booking.endDate)}</span>
+              <span>{formatTime(booking.startTime)}</span>
+              <span>{formatTime(booking.endTime)}</span>
             </div>
             <div className='vsdfg'>
               <User size={25} />

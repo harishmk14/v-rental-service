@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addBooking } from './Slice/bookingSlice'; 
-import { toast } from 'react-toastify'; // Adjust the import path as necessary
+import { fetchUserData } from './Slice/userSlice'; // Adjust the import path as necessary
+import { toast } from 'react-toastify';
 import './styles.css';
 
 const Bookmodal = ({ show, onClose, vehicle }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userId = localStorage.getItem('loggedInUserId');
+
+  // Fetch user data from Redux store
+  const userData = useSelector((state) => state.user.data);
 
   // Initialize form state
   const [form, setForm] = useState({
@@ -30,6 +35,13 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     carNumber: vehicle?.registrationNumber || '' // Set carNumber based on vehicle prop
   });
 
+  // Fetch user data when component mounts
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserData(userId));
+    }
+  }, [dispatch, userId]);
+
   // Update carNumber if vehicle prop changes
   useEffect(() => {
     if (vehicle?.registrationNumber) {
@@ -39,6 +51,20 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       }));
     }
   }, [vehicle]);
+
+  // Update form with user data
+  useEffect(() => {
+    if (userData) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        name: userData.fName || '',
+        gender: userData.gender || '',
+        mobile: userData.mobile || '',
+        email: userData.email || '',
+        address: userData.address || ''
+      }));
+    }
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +76,15 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addBooking(form))
+    
+    // Format the startDate and endDate to only include the date part
+    const formattedForm = {
+      ...form,
+      startDate: form.startDate,
+      endDate: form.endDate,
+    };
+  
+    dispatch(addBooking(formattedForm))
       .unwrap()
       .then(() => {
         toast.success('Booking Details Submitted!');
@@ -93,6 +127,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
   if (!show) {
     return null;
   }
+  
   return (
     <div className="modal-backdrop">
       <div className="modal-content">
@@ -143,12 +178,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
               <input style={{width:"100%"}} type="text" name="name" value={form.name} onChange={handleChange} required placeholder='Name (Main)' />
             </div>
             <div className='new'>
-            <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676" }} name="gender" value={form.gender} onChange={handleChange} required>
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
+            <input style={{width:"100%"}} type="text" name="carNumber" value={form.carNumber} disabled />
             </div>
           </div>
           <div className="mform-row">
@@ -174,15 +204,13 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
               <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="proof" value={form.proof} onChange={handleChange} required>
                 <option value="">Select Proof</option>
                 <option value="Aadhar">Aadhar</option>
-                <option value="Passport">Passport</option>
                 <option value="Driving License">Driving License</option>
-                <option value="Voter Id">Voter ID</option>
+                <option value="Passport">Passport</option>
+                <option value="Voter ID">Voter ID</option>
               </select>
             </div>
-          </div>
-          <div className="mform-row">
             <div className='new'>
-            <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="paymentMethod" value={form.paymentMethod} onChange={handleChange} required>
+              <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="paymentMethod" value={form.paymentMethod} onChange={handleChange} required>
                 <option value="">Select Payment Method</option>
                 <option value="Cash On">Cash On</option>
                 <option value="Online Pay">Online Pay</option>

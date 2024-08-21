@@ -7,13 +7,51 @@ import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';
 
 function Booking() {
   const dispatch = useDispatch();
-  const {vehicles} = useSelector((state) => state.vehicleData);
+  const { vehicles } = useSelector((state) => state.vehicleData);
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [form, setForm] = useState({
+    vehicleType: '',
+    seats: '',
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
+    driver: 'with-driver',
+  });
+  const [totDays, setTotDays] = useState(null);
 
   useEffect(() => {
     dispatch(fetchVehicles());
   }, [dispatch]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleSearch = () => {
+    const { startDate, endDate } = form;
+
+    // Convert the date strings to Date objects
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+
+    // Calculate the difference in milliseconds
+    const diffInMilliseconds = date2 - date1;
+
+    // Convert milliseconds to days
+    const totalDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+    // Store the result in the state
+    setTotDays(totalDays);
+
+    console.log(totalDays);
+    console.log(totDays);
+  };
 
   const handleBookClick = (vehicle) => {
     setSelectedVehicle(vehicle);
@@ -24,26 +62,6 @@ function Booking() {
     setShowModal(false);
     setSelectedVehicle(null);
   };
-
-  const [form, setForm] = useState({
-    vehicleType: '',
-    seats: '',
-    startDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
-    driver: 'with-driver',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-
 
   return (
     <div style={{ backgroundColor: "#f4f4f4" }} className='booking_page'>
@@ -115,7 +133,7 @@ function Booking() {
           </div>
         </div>
         <div className='search_button'>
-          <button style={{ color: "white", padding: "10px", width: "100px", borderRadius: "5px", backgroundColor: "#132b75", border: "none", cursor: "pointer" }} type="submit">Search</button>
+          <button style={{ color: "white", padding: "10px", width: "100px", borderRadius: "5px", backgroundColor: "#132b75", border: "none", cursor: "pointer" }} type="button" onClick={handleSearch}>Search</button>
         </div>
       </div>
       <div style={{ padding: '20px', gap: '20px' }} className='bookv-cards'>
@@ -136,11 +154,15 @@ function Booking() {
               </div>
             </div>
             <div style={{ marginLeft: "40px", marginTop: "40px" }}>
-              <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}><IndianRupee color="#132b75" size={30} />{vehicle.price}</p>
+              <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
+                <IndianRupee color="#132b75" size={30} />
+                {totDays === null || NaN ? vehicle.price : vehicle.price * totDays}
+              </p>
               <p style={{ color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>+ ₹{vehicle.price / 8 + 3} Taxes & Charges</p>
               <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
                 onClick={() => handleBookClick(vehicle)}>
-                Book</button>
+                Book
+              </button>
             </div>
           </div>
         ))}
