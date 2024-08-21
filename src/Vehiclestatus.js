@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookings } from './Slice/vehicleStatusSlice'; // adjust the path as necessary
 import {
@@ -16,6 +17,7 @@ import {
   User,
   Users,
   MoreVertical, // Icon for the menu
+  X, // Close icon
 } from 'lucide-react';
 
 const VehicleStatus = () => {
@@ -23,6 +25,8 @@ const VehicleStatus = () => {
   const { bookings, loading, error } = useSelector((state) => state.vehicleStatus);
 
   const [dropdownVisible, setDropdownVisible] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [advanceAmount, setAdvanceAmount] = useState("");
 
   useEffect(() => {
     dispatch(fetchBookings());
@@ -30,6 +34,21 @@ const VehicleStatus = () => {
 
   const toggleDropdown = (index) => {
     setDropdownVisible(dropdownVisible === index ? null : index);
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    setDropdownVisible(null); // Close the dropdown when opening the modal
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setAdvanceAmount(""); // Clear input on modal close
+  };
+
+  const handleAdvanceSubmit = () => {
+    alert(`Advance Amount: ${advanceAmount}`);
+    closeModal();
   };
 
   if (loading) {
@@ -116,7 +135,7 @@ const VehicleStatus = () => {
               <MoreVertical size={24} onClick={() => toggleDropdown(index)} style={{ cursor: 'pointer' }} />
               {dropdownVisible === index && (
                 <div style={{ position: 'absolute', top: '35px', right: '0', backgroundColor: 'white', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)', borderRadius: '6px', zIndex: 100, width:"8rem" }}>
-                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => alert('Add Advance clicked')}>Add Advance</div>
+                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={openModal}>Add Advance</div>
                   <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => alert('Cancel Trip clicked')}>Cancel Trip</div>
                 </div>
               )}
@@ -124,6 +143,72 @@ const VehicleStatus = () => {
           </div>
         </div>
       ))}
+      
+      {/* Modal for Add Advance */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={{
+          overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+          content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '20px',
+            borderRadius: '10px',
+            width: '400px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center', // Center heading, input, and button
+          },
+        }}
+      >
+        <div style={{ position: 'relative', width: '100%' }}>
+          <h2 style={{ textAlign: 'center', margin: '0 auto',color:"#132b75" }}>Add Advance</h2>
+          <X
+            size={18}
+            onClick={closeModal}
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              right: '-10px',
+              cursor: 'pointer',
+              color:"grey"
+            }}
+          />
+        </div>
+        <input
+          type="number"
+          value={advanceAmount}
+          onChange={(e) => setAdvanceAmount(e.target.value)}
+          placeholder="Enter advance amount"
+          style={{
+            width: '15rem',
+            padding: '10px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            marginBottom: '20px',
+            marginTop: '20px', // Add margin to create space between heading and input
+          }}
+        />
+        <button
+          onClick={handleAdvanceSubmit}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#132b75',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            width: '5rem', // Center the button
+          }}
+        >
+          Submit
+        </button>
+      </Modal>
     </div>
   );
 };
