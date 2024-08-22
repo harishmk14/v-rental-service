@@ -5,6 +5,7 @@ import axios from 'axios';
 const initialState = {
   bookingData: null,
   status: 'idle',
+  fromdateandenddate:{},
   error: null,
 };
 
@@ -25,7 +26,9 @@ export const addBooking = createAsyncThunk(
 const bookingSlice = createSlice({
   name: 'booking',
   initialState,
-  reducers: {},
+  reducers: {
+   
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addBooking.pending, (state) => {

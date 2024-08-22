@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBooking } from './Slice/bookingSlice'; 
+import { addBooking } from './Slice/bookingSlice';
 import { fetchUserData } from './Slice/userSlice'; // Adjust the import path as necessary
 import { toast } from 'react-toastify';
 import './styles.css';
 
-const Bookmodal = ({ show, onClose, vehicle }) => {
+const Bookmodal = ({ show, onClose, vehicle, dates,on}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem('loggedInUserId');
@@ -14,12 +14,12 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
   // Fetch user data from Redux store
   const userData = useSelector((state) => state.user.data);
 
-  // Initialize form state
+  // Initialize form state with default values for new keys
   const [form, setForm] = useState({
     departurePlace: '',
     arrivelPlace: '',
-    startDate: '',
-    endDate: '',
+    startDate: dates.startDate,
+    endDate: dates.endDate,
     startTime: '',
     endTime: '',
     travalType: '',
@@ -32,7 +32,10 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     address: '',
     proof: '',
     paymentMethod: '',
-    carNumber: vehicle?.registrationNumber || '' // Set carNumber based on vehicle prop
+    carNumber: vehicle?.registrationNumber || '',
+    totalAmount: vehicle?.price * on + vehicle?.price / 8 + 3,
+    numberOfDate: on,
+    tax: vehicle?.price / 8 + 3,
   });
 
   // Fetch user data when component mounts
@@ -47,10 +50,24 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     if (vehicle?.registrationNumber) {
       setForm((prevForm) => ({
         ...prevForm,
-        carNumber: vehicle.registrationNumber
+        carNumber: vehicle.registrationNumber,
+        startDate: dates.startDate,
+        endDate: dates.endDate
       }));
     }
-  }, [vehicle]);
+  }, [vehicle,dates]);
+ // Update carNumber if vehicle prop changes
+ useEffect(() => {
+  if (on || vehicle) {
+    setForm((prevForm) => ({
+      ...prevForm,
+      numberOfDate: on,
+      totalAmount: vehicle?.price * on + vehicle?.price / 8 + 3,
+      tax:vehicle?.price / 8 + 3
+
+    }));
+  }
+}, [on,vehicle]);
 
   // Update form with user data
   useEffect(() => {
@@ -76,15 +93,8 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Format the startDate and endDate to only include the date part
-    const formattedForm = {
-      ...form,
-      startDate: form.startDate,
-      endDate: form.endDate,
-    };
-  
-    dispatch(addBooking(formattedForm))
+
+    dispatch(addBooking(form))
       .unwrap()
       .then(() => {
         toast.success('Booking Details Submitted!');
@@ -106,8 +116,8 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
     setForm({
       departurePlace: '',
       arrivelPlace: '',
-      startDate: '',
-      endDate: '',
+      startDate: dates.startDate,
+      endDate: dates.endDate,
       startTime: '',
       endTime: '',
       travalType: '',
@@ -120,14 +130,17 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
       address: '',
       proof: '',
       paymentMethod: '',
-      carNumber: vehicle?.registrationNumber || ''
+      carNumber: vehicle?.registrationNumber || '',
+      totalAmount: '',
+      numberOfDate: '',
+      tax: ''
     });
   };
 
   if (!show) {
     return null;
   }
-  
+
   return (
     <div className="modal-backdrop">
       <div className="modal-content">
@@ -144,10 +157,10 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
           </div>
           <div className="mform-row">
             <div className='new'>
-              <input type="date" name="startDate" value={form.startDate} onChange={handleChange}  style={{width:"100%"}} className="static-field"/>
+              <input type="text" name="startDate" value={form.startDate} disabled  style={{width:"100%"}} className="static-field"/>
             </div>
-            <div className='new'> 
-            <input type="date" name="endDate" value={form.endDate} onChange={handleChange}  style={{width:"100%"}} className="static-field"/>
+            <div className='new'>
+              <input type="text" name="endDate" value={form.endDate} disabled  style={{width:"100%"}} className="static-field"/>
             </div>
           </div>
           <div className="mform-row">
@@ -178,7 +191,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
               <input style={{width:"100%"}} type="text" name="name" value={form.name} onChange={handleChange} required placeholder='Name (Main)' />
             </div>
             <div className='new'>
-            <input style={{width:"100%"}} type="text" name="carNumber" value={form.carNumber} disabled />
+              <input style={{width:"100%"}} type="text" name="carNumber" value={form.carNumber} disabled />
             </div>
           </div>
           <div className="mform-row">
@@ -211,7 +224,7 @@ const Bookmodal = ({ show, onClose, vehicle }) => {
             </div>
             <div className='new'>
               <select style={{width:"100%", borderRadius:"5px", padding:"7px", border:"1px solid #b6b5b5", color:"#767676"}} name="paymentMethod" value={form.paymentMethod} onChange={handleChange} required>
-                <option value="">Select Payment Method</option>
+                <option value="">Payment Method</option>
                 <option value="Cash On">Cash On</option>
                 <option value="Online Pay">Online Pay</option>
               </select>

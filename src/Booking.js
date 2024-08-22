@@ -33,13 +33,14 @@ function Booking() {
     });
   };
 
+    const [fromandend,setfromandend]=useState({})
   const handleSearch = () => {
     const { startDate, endDate } = form;
-
+    setfromandend({startDate,endDate})
     // Convert the date strings to Date objects
     const date1 = new Date(startDate);
     const date2 = new Date(endDate);
-
+ 
     // Calculate the difference in milliseconds
     const diffInMilliseconds = date2 - date1;
 
@@ -48,9 +49,6 @@ function Booking() {
 
     // Store the result in the state
     setTotDays(totalDays);
-
-    console.log(totalDays);
-    console.log(totDays);
   };
 
   const handleBookClick = (vehicle) => {
@@ -137,37 +135,43 @@ function Booking() {
         </div>
       </div>
       <div style={{ padding: '20px', gap: '20px' }} className='bookv-cards'>
-        {vehicles.map((vehicle, index) => (
-          <div className="bookv-card" key={index}>
-            <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
-            <div className='portion1'>
-              <h2>{vehicle.brandName}</h2>
-              <p><IndianRupee color="#132b75" size={16} /> {vehicle.price} / Day</p>
-              <p><Star color="#132b75" size={16} /> {vehicle.star} / {vehicle.review}</p>
-              <p><MapPinned color="#132b75" size={16} /> Extra km fare Rs. {vehicle.price / 100} /km after {vehicle.range} kms</p>
-              <p><Timer color="#132b75" size={16} /> Extra time fare Rs. {vehicle.price / 25} per 30 mins after 24hr</p>
-              <div className="bookv-features">
-                <div className="feature1">{vehicle.seater} Seats</div>
-                <div className="feature1">{vehicle.acOrNonAc}</div>
-                <div className="feature1">{vehicle.gearType}</div>
-                <div className="feature1">{vehicle.fuelType}</div>
+        {vehicles.map((vehicle, index) => {
+          // Calculate total amount
+          const totAmount = (vehicle.price * totDays) + (vehicle.price / 8 + 3);
+          const tax = (vehicle.price / 8 + 3);
+
+          return (
+            <div className="bookv-card" key={index}>
+              <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
+              <div className='portion1'>
+                <h2>{vehicle.brandName}</h2>
+                <p><IndianRupee color="#132b75" size={16} /> {vehicle.price} / Day</p>
+                <p><Star color="#132b75" size={16} /> {vehicle.star} / {vehicle.review}</p>
+                <p><MapPinned color="#132b75" size={16} /> Extra km fare Rs. {vehicle.price / 100} /km after {vehicle.range} kms</p>
+                <p><Timer color="#132b75" size={16} /> Extra time fare Rs. {vehicle.price / 25} per 30 mins after 24hr</p>
+                <div className="bookv-features">
+                  <div className="feature1">{vehicle.seater} Seats</div>
+                  <div className="feature1">{vehicle.acOrNonAc}</div>
+                  <div className="feature1">{vehicle.gearType}</div>
+                  <div className="feature1">{vehicle.fuelType}</div>
+                </div>
+              </div>
+              <div style={{ marginLeft: "40px", marginTop: "40px" }}>
+                <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
+                  <IndianRupee color="#132b75" size={30} />
+                  {totDays === null || isNaN(totDays) ? vehicle.price : totAmount-tax }
+                </p>
+                <p style={{ color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>+ ₹{tax} Taxes & Charges</p>
+                <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
+                  onClick={() => handleBookClick(vehicle)}>
+                  Book
+                </button>
               </div>
             </div>
-            <div style={{ marginLeft: "40px", marginTop: "40px" }}>
-              <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
-                <IndianRupee color="#132b75" size={30} />
-                {totDays === null || NaN ? vehicle.price : vehicle.price * totDays}
-              </p>
-              <p style={{ color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>+ ₹{vehicle.price / 8 + 3} Taxes & Charges</p>
-              <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
-                onClick={() => handleBookClick(vehicle)}>
-                Book
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} />
+      <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} dates={fromandend} on={totDays} />
     </div>
   );
 }
