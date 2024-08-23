@@ -1,4 +1,4 @@
-// src/redux/customerSlice.js
+// src/Slice/customerSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchCustomers = createAsyncThunk('customers/fetchCustomers', async () => {

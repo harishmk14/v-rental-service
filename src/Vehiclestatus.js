@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookings } from './Slice/vehicleStatusSlice'; // adjust the path as necessary
+import { fetchBookings, updateBooking } from './Slice/vehicleStatusSlice'; // adjust the path as necessary
 import {
   ArrowBigDown,
   ArrowBigUp,
@@ -27,6 +27,7 @@ const VehicleStatus = () => {
   const [dropdownVisible, setDropdownVisible] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [advanceAmount, setAdvanceAmount] = useState("");
+  const [selectedBookingId, setSelectedBookingId] = useState(null); // New state for the selected booking ID
 
   useEffect(() => {
     dispatch(fetchBookings());
@@ -52,7 +53,8 @@ const VehicleStatus = () => {
     setDropdownVisible(dropdownVisible === index ? null : index);
   };
 
-  const openModal = () => {
+  const openModal = (bookingId) => {
+    setSelectedBookingId(bookingId); // Set the selected booking ID
     setModalIsOpen(true);
     setDropdownVisible(null); // Close the dropdown when opening the modal
   };
@@ -60,10 +62,71 @@ const VehicleStatus = () => {
   const closeModal = () => {
     setModalIsOpen(false);
     setAdvanceAmount(""); // Clear input on modal close
+    setSelectedBookingId(null); // Clear the selected booking ID
   };
 
+
+  const handleStartClick = (bookingId) => {
+    const now = new Date();
+    const formattedTime = formatTime(now);
+
+    const updateData = {
+      status: 'Journey Start',
+      startTime: formattedTime,
+    };
+
+    dispatch(updateBooking({ bookingId, updateData }))
+      .then(() => {})
+      .catch((error) => {});
+  };
+
+  const handleStopClick = (bookingId) => {
+    const now = new Date();
+    const formattedTime = formatTime(now);
+
+    const updateData = {
+      status: 'Incompleted',
+      endTime: formattedTime,
+    };
+
+    dispatch(updateBooking({ bookingId, updateData }))
+      .then(() => {})
+      .catch((error) => {});
+  };
+
+  const handleCancelClick = (bookingId) => {
+    const updateData = {
+      status: 'Cancelled',
+    };
+
+    dispatch(updateBooking({ bookingId, updateData }))
+      .then(() => {})
+      .catch((error) => {});
+  };
+
+  const handleCompleteClick = (bookingId) => {
+    const updateData = {
+      status: 'Completed',
+    };
+
+    dispatch(updateBooking({ bookingId, updateData }))
+      .then(() => {})
+      .catch((error) => {});
+  };
+
+  
+  
   const handleAdvanceSubmit = () => {
-    alert(`Advance Amount: ${advanceAmount}`);
+    if (!selectedBookingId) return;
+
+    const updateData = { advanceAmount: advanceAmount };
+
+    dispatch(updateBooking({ bookingId: selectedBookingId, updateData }))
+      .then((response) => {
+        if (!response.error) {
+        }
+      });
+
     closeModal();
   };
 
@@ -136,23 +199,23 @@ const VehicleStatus = () => {
             </div>
             <div style={{ display: 'flex', width: '30rem', flexDirection: 'column', gap: '3px' }}>
               <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
-                <span style={{ color: '#132b75', fontSize: '1.8rem' }}><IndianRupee size={22} />2800</span>
+                <span style={{ color: '#132b75', fontSize: '1.8rem' }}><IndianRupee size={22} />{booking.totalAmount - booking.advanceAmount}</span>
                 <span style={{ color: '#132b75', fontSize: '1.4rem' }}>Payment Method: {booking.paymentMethod}</span>
               </div>
               <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
-                <button className='but' style={{ backgroundColor: '#132b75' }}>Start</button>
-                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>2D:8H:20M</div>
-                <button className='but' style={{ backgroundColor: 'red' }}>Stop</button>
-                <button className='but' style={{ backgroundColor: '#22ff22' }}>Completed</button>
+                <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() => handleStartClick(booking._id)}>Start</button>
+                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status}</div>
+                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => handleStopClick(booking._id)}>Stop</button>
+                <button className='but' style={{ backgroundColor: '#22ff22' }} onClick={() => handleCompleteClick(booking._id)}>Completed</button>
               </div>
             </div>
             {/* Menu icon with dropdown */}
             <div style={{ position: 'relative', marginLeft: 'auto', padding: '10px' }}>
               <MoreVertical size={24} onClick={() => toggleDropdown(index)} style={{ cursor: 'pointer' }} />
               {dropdownVisible === index && (
-                <div style={{ position: 'absolute', top: '35px', right: '0', backgroundColor: 'white', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)', borderRadius: '6px', zIndex: 100, width:"8rem" }}>
-                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={openModal}>Add Advance</div>
-                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => alert('Cancel Trip clicked')}>Cancel Trip</div>
+                <div style={{ position: 'absolute', top: '35px', right: '0', backgroundColor: 'white', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)', borderRadius: '6px', zIndex: 100, width: "8rem" }}>
+                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => openModal(booking._id)}>Add Advance</div>
+                  <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleCancelClick(booking._id)}>Cancel Trip</div>
                 </div>
               )}
             </div>

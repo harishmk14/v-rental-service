@@ -16,6 +16,7 @@ export const addBooking = createAsyncThunk(
     try {
       const response = await axios.post('http://localhost:2000/booking/add/booking', bookingDetails);
       return response.data;
+
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

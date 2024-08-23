@@ -18,6 +18,16 @@ export const fetchBookings = createAsyncThunk('vehicleStatus/fetchBookings', asy
   }
 });
 
+// Define the async thunk for updating booking data
+export const updateBooking = createAsyncThunk('vehicleStatus/updateBooking', async ({ bookingId, updateData }, { rejectWithValue }) => {
+  try {
+    const response = await axios.put(`http://localhost:2000/booking/update/${bookingId}`, updateData);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.message || 'An error occurred');
+  }
+});
+
 // Create the slice
 const vehicleStatusSlice = createSlice({
   name: 'vehicleStatus',
@@ -38,9 +48,25 @@ const vehicleStatusSlice = createSlice({
       .addCase(fetchBookings.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(updateBooking.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateBooking.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        const index = state.bookings.findIndex((booking) => booking._id === payload._id);
+        if (index !== -1) {
+          state.bookings[index] = payload;
+        }
+      })
+      .addCase(updateBooking.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
       });
   },
 });
 
-// Export the async thunk and the reducer
+// Export the async thunks and the reducer
+export const { actions: vehicleStatusActions } = vehicleStatusSlice;
 export default vehicleStatusSlice.reducer;
