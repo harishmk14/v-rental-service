@@ -204,7 +204,7 @@ const Bookmodal = ({ show, onClose, vehicle, dates,on}) => {
           </div>
           <div className="mform-row">
             <div className='new'>
-              <input style={{width:"100%"}} type="email" name="email" value={form.email} onChange={handleChange} required placeholder='Email'/>
+              <input style={{width:"100%"}} type="email" name="email" value={form.email} disabled />
             </div>
           </div>
           <div className="mform-row">

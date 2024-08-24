@@ -80,19 +80,72 @@ const VehicleStatus = () => {
       .catch((error) => {});
   };
 
-  const handleStopClick = (bookingId) => {
+  const handleStopClick = (bookingId, bSd, bEd, bSt, bEt) => {
+    
     const now = new Date();
     const formattedTime = formatTime(now);
-
+    const formattedDate = now.toISOString().split('T')[0];
+    
+    // Create date-time strings
+    const dateTime1String = `${bSd} ${bSt}`;
+    const dateTime2String = `${bEd} ${bEt}`;
+    
+    // Function to parse date-time strings
+    function parseDateTime(dateTimeString) {
+      const [datePart, timePart] = dateTimeString.split(" ");
+      let [day, month, year] = datePart.split("-");
+      let [hours, minutes] = timePart.split(":");
+      const period = timePart.split(" ")[1]; // AM or PM
+  
+      // Zero-pad month and day
+      month = month.padStart(2, '0');
+      day = day.padStart(2, '0');
+  
+      // Convert hours based on AM/PM
+      hours = parseInt(hours, 10);
+      if (period === "PM" && hours !== 12) {
+          hours += 12;
+      } else if (period === "AM" && hours === 12) {
+          hours = 0;
+      }
+  
+      // Zero-pad hours
+      hours = hours.toString().padStart(2, '0');
+  
+      // Return Date object in ISO format
+      return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+  }
+    
+    // Parse date-time strings
+    const dateTime1 = parseDateTime(dateTime1String);
+    const dateTime2 = parseDateTime(dateTime2String);
+    
+    if (isNaN(dateTime1) || isNaN(dateTime2)) {
+      console.error('Invalid date-time format');
+      return;
+    }
+    
+    // Calculate the difference
+    const diffInMilliseconds = dateTime2 - dateTime1;
+    const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
+    const days = Math.floor(diffInMinutes / (60 * 24));
+    const hours = Math.floor((diffInMinutes % (60 * 24)) / 60);
+    const minutes = diffInMinutes % 60;
+    
+    // Update booking status
     const updateData = {
       status: 'Incompleted',
       endTime: formattedTime,
+      endDate: formattedDate,
+      totalTime: `${days}d ${hours}h ${minutes}m`, // Add duration to updateData if needed
     };
-
+    
     dispatch(updateBooking({ bookingId, updateData }))
       .then(() => {})
       .catch((error) => {});
   };
+  
+  
 
   const handleCancelClick = (bookingId) => {
     const updateData = {
@@ -140,7 +193,9 @@ const VehicleStatus = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#f4f4f4', width: '93rem', minHeight: '87vh', padding: '0 16px 16px 15px' }}>
-      {bookings.map((booking, index) => (
+      {bookings
+      .filter(booking => booking.status !== 'Cancelled' && booking.status !== 'Completed' )
+      .map((booking, index) => (
         <div key={index} style={{ display: 'flex', width: '93rem', minHeight: '6rem' }}>
           <div style={{ display: 'flex', backgroundColor: 'white', width: '93rem', minHeight: '5rem', marginTop: '1rem', borderRadius: '10px', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }}>
             <div className='vsdfg'>
@@ -204,8 +259,8 @@ const VehicleStatus = () => {
               </div>
               <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
                 <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() => handleStartClick(booking._id)}>Start</button>
-                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status}</div>
-                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => handleStopClick(booking._id)}>Stop</button>
+                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status !== "Journey Start" ? booking.totalTime : booking.status }</div>
+                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => handleStopClick(booking._id,formatDate(booking.startDate),formatDate(booking.endDate),formatTime(booking.startTime),formatTime(booking.endTime))}>Stop</button>
                 <button className='but' style={{ backgroundColor: '#22ff22' }} onClick={() => handleCompleteClick(booking._id)}>Completed</button>
               </div>
             </div>
