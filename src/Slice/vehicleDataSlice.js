@@ -21,6 +21,16 @@ export const deleteVehicle = createAsyncThunk('vehicles/deleteVehicle', async (i
   }
 });
 
+export const filterVehicles = createAsyncThunk('vehicles/filterVehicles', async (filterData, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('http://localhost:2000/booking/filter', filterData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
 // Slice for vehicle data
 const vehicleDataSlice = createSlice({
   name: 'vehicleData',
@@ -50,6 +60,18 @@ const vehicleDataSlice = createSlice({
       })
       .addCase(deleteVehicle.rejected, (state, action) => {
         state.error = action.payload || 'Failed to delete vehicle'; // Set error message from server or default
+      })
+
+      .addCase(filterVehicles.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(filterVehicles.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.vehicles = action.payload;
+      })
+      .addCase(filterVehicles.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Failed to fetch filtered vehicles';
       });
   }
   

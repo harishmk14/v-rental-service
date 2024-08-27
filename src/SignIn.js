@@ -64,9 +64,9 @@ function SignIn() {
   };
 
   return (
-    <div className="login-container" style={{ position: 'relative', minHeight: '100vh' }}>
+    <div className="login-container">
       <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-        <UserCog size={30} style={{ padding: '5px', backgroundColor: '#132b75', color: 'white', border: 'none', borderRadius: '50%', cursor: 'pointer' }} onClick={() => setIsAdminModalOpen(true)} />
+        <UserCog size={30} className='abc7' onClick={() => setIsAdminModalOpen(true)} />
       </div>
       <AdminModal isOpen={isAdminModalOpen} onClose={() => setIsAdminModalOpen(false)} onLogin={handleAdminLogin} />
       <ToastContainer />

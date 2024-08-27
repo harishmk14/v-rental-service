@@ -10,6 +10,7 @@ import AuthModal from './Authmodal'; // Import the AuthModal component
 
 const Layout = () => {
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+  const [menuOpen, setMenuOpen] = useState(false); // State to manage hamburger menu visibility
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
@@ -38,11 +39,20 @@ const Layout = () => {
     setShowModal(false);
   };
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen); // Toggle the hamburger menu visibility
+  };
+
   return (
     <>
       <ToastContainer />
-      <div className="navbar">
+      <div className={`navbar ${menuOpen ? 'active' : ''}`}>
         <div className="logo">V-RENTAL</div>
+        <div className="hamburger" onClick={toggleMenu}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <nav>
           <ul>
             <li>

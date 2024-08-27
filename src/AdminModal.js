@@ -24,7 +24,7 @@ function AdminModal({ isOpen, onClose, onLogin }) {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content" style={{height:"330px"}}>
+      <div className="modal-content">
         <h1 style={{ color: "#132b75" }}>Admin Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -48,28 +48,13 @@ function AdminModal({ isOpen, onClose, onLogin }) {
           <div className="modal-buttons" style={{ gap: "20px" }}>
             <button
               type="submit"
-              style={{
-                padding: "10px",
-                backgroundColor: '#132b75',
-                color: 'white',
-                border: 'none',
-                borderRadius: "6px",
-                width: "4rem",
-                cursor: "pointer"
-              }}
+              className='abc8'
             >
               Login
             </button>
             <button
               type="button"
-              style={{
-                padding: "10px",
-                backgroundColor: '#f4f4f4',
-                border: 'none',
-                borderRadius: "6px",
-                width: "4rem",
-                cursor: "pointer"
-              }}
+              className='abc9'
               onClick={onClose}
             >
               Close
