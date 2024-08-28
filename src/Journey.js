@@ -41,8 +41,21 @@ function Journey() {
     setStatus(newStatus);
   };
 
-  // Filter the bookings based on the user's email
-  const filteredBookings = bookings.filter((booking) => booking.email === user?.email);
+  const filterBookingsByStatus = (booking) => {
+    if (status === 'Journey Starts') {
+      return booking.status === 'Incompleted' || booking.status === 'Journey Start';
+    } else if (status === 'Pending') {
+      return booking.status === 'Pending';
+    } else if (status === 'Completed') {
+      return booking.status === 'Completed' || booking.status === 'Cancelled';
+    }
+    return false;
+  };
+  
+  // Filter the bookings based on the selected status
+  const filteredBookings = bookings.filter((booking) => 
+    booking.email === user?.email && filterBookingsByStatus(booking)
+  );
 
   // Find the corresponding vehicle data based on the booking car number
   const getVehicleData = (carnumber) => {

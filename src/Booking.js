@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchVehicles, filterVehicles } from './Slice/vehicleDataSlice';
+import { fetchVehicles,filterVehicles} from './Slice/vehicleDataSlice';
 import './styles.css';
 import Modal from './Bookmodal';
 import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';

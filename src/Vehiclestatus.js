@@ -150,6 +150,7 @@ const VehicleStatus = () => {
   const handleCancelClick = (bookingId) => {
     const updateData = {
       status: 'Cancelled',
+      paymentStatus: 'None',
     };
 
     dispatch(updateBooking({ bookingId, updateData }))
@@ -160,6 +161,7 @@ const VehicleStatus = () => {
   const handleCompleteClick = (bookingId) => {
     const updateData = {
       status: 'Completed',
+      paymentStatus: 'Paid',
     };
 
     dispatch(updateBooking({ bookingId, updateData }))
@@ -259,7 +261,8 @@ const VehicleStatus = () => {
               </div>
               <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
                 <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() => handleStartClick(booking._id)}>Start</button>
-                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status !== "Journey Start" ? booking.totalTime : booking.status }</div>
+                <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status === "Journey Start" || booking.status === "Pending" ? booking.status : booking.totalTime}
+                </div>
                 <button className='but' style={{ backgroundColor: 'red' }} onClick={() => handleStopClick(booking._id,formatDate(booking.startDate),formatDate(booking.endDate),formatTime(booking.startTime),formatTime(booking.endTime))}>Stop</button>
                 <button className='but' style={{ backgroundColor: '#22ff22' }} onClick={() => handleCompleteClick(booking._id)}>Completed</button>
               </div>
