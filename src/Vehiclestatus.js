@@ -80,7 +80,7 @@ const VehicleStatus = () => {
       .catch((error) => {});
   };
 
-  const handleStopClick = (bookingId, bSd, bEd, bSt, bEt) => {
+  const handleStopClick = (bookingId, bSd, bEd, bSt, bEt, dy, ta, tax) => {
     
     const now = new Date();
     const formattedTime = formatTime(now);
@@ -131,13 +131,19 @@ const VehicleStatus = () => {
     const days = Math.floor(diffInMinutes / (60 * 24));
     const hours = Math.floor((diffInMinutes % (60 * 24)) / 60);
     const minutes = diffInMinutes % 60;
+    const rem = (days - dy);
+    const updy = (days + dy);
+    const uptotamount = rem * ((ta-tax)/dy);
+    const upto = uptotamount + ta;
     
     // Update booking status
     const updateData = {
       status: 'Incompleted',
       endTime: formattedTime,
       endDate: formattedDate,
-      totalTime: `${days}d ${hours}h ${minutes}m`, // Add duration to updateData if needed
+      totalTime: `${days}d ${hours}h ${minutes}m`,
+      numberOfDate: updy,
+      totalAmount: upto, // Add duration to updateData if needed
     };
     
     dispatch(updateBooking({ bookingId, updateData }))
@@ -260,10 +266,23 @@ const VehicleStatus = () => {
                 <span style={{ color: '#132b75', fontSize: '1.4rem' }}>Payment Method: {booking.paymentMethod}</span>
               </div>
               <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
-                <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() => handleStartClick(booking._id)}>Start</button>
+                <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() =>{ if (booking.status === "Pending") {handleStartClick(booking._id)}}}>Start</button>
                 <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status === "Journey Start" || booking.status === "Pending" ? booking.status : booking.totalTime}
-                </div>
-                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => handleStopClick(booking._id,formatDate(booking.startDate),formatDate(booking.endDate),formatTime(booking.startTime),formatTime(booking.endTime))}>Stop</button>
+                </div>                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => {
+    if (booking.status !== "Incompleted") {
+      handleStopClick(
+        booking._id,
+        formatDate(booking.startDate),
+        formatDate(new Date()), // Current date
+        formatTime(booking.startTime),
+        formatTime(new Date()), // Current time
+        booking.numberOfDate,
+        booking.totalAmount,
+        booking.tax
+      );
+    } 
+  }}>Stop</button>
+
                 <button className='but' style={{ backgroundColor: '#22ff22' }} onClick={() => handleCompleteClick(booking._id)}>Completed</button>
               </div>
             </div>

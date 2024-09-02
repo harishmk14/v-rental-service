@@ -143,7 +143,7 @@ const Bookmodal = ({ show, onClose, vehicle, dates,on}) => {
 
   return (
     <div className="modal-backdrop">
-      <div className="modal-content">
+      <div className="abc10">
         <h2 className="modal-title">{`Book ${vehicle.brandName}`}</h2>
 
         <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", marginTop:"20px", rowGap:"15px"}}>

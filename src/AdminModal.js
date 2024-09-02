@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminLogin } from './Slice/adminSlice';
 
-function AdminModal({ isOpen, onClose, onLogin }) {
+function AdminModal({ isOpen, onClose }) {
   const [adminId, setAdminId] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { error, loading } = useSelector((state) => state.admin);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await onLogin({ adminId, adminPassword });
-      // Reset the form fields
-      setAdminId('');
-      setAdminPassword('');
-      // Navigate to the admin page
-      navigate('/admin');
+      const resultAction = await dispatch(adminLogin({ adminId, adminPassword }));
+      if (adminLogin.fulfilled.match(resultAction)) {
+        // Reset the form fields
+        setAdminId('');
+        setAdminPassword('');
+        // Navigate to the admin page
+        navigate('/admin');
+      }
     } catch (error) {
-      // Handle any login errors here if needed
+      console.error('Login failed', error);
     }
   };
 
@@ -45,12 +52,15 @@ function AdminModal({ isOpen, onClose, onLogin }) {
               onChange={(e) => setAdminPassword(e.target.value)}
             />
           </div>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <div className="modal-buttons" style={{ gap: "20px" }}>
             <button
               type="submit"
               className='abc8'
+              onClick={handleSubmit}
+              disabled={loading}
             >
-              Login
+              {loading ? 'Logging in...' : 'Login'}
             </button>
             <button
               type="button"

@@ -30,9 +30,6 @@ select.placeholder {
 }
 
 .abc2{
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -94,6 +91,38 @@ select.placeholder {
   width: 4rem;
   cursor: pointer;
 }
+
+.abc10 {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.abc11 {
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+.abc12 {
+  color: #132b75;
+  font-family: sans-serif;
+  margin: 10px;
+}
+
+.abc13 {
+  text-align: center;
+  color: #132b75;
+}
+
+.abc14 {
+  padding: 10px;
+  border-radius: 5px;
+  width: 102%;
+}
+
 
 
 
@@ -1655,11 +1684,80 @@ margin-bottom: 2px;
   gap: 16px;
   color: #132b75;
 }
+@media (max-width: 1140px) {
+  .bookv-card img {
+    height: fit-content;
+}
+}
 
 @media (max-width: 1024px) {
+
+  .search_area {
+    width: 38%;
+  }
+  .bookv-cards {
+    width: 62%;
+    margin-left: 38%;
+  }
+  .bookv-card img {
+    width: 35%;
+  }
+
+  .bookv-card {
+    flex-direction: column;
+  }
+
+  .search_driver {
+    padding: 10px 16px;
+   }
+  .abc14 {
+    padding: 6px;
+  }
+.search_row .search_col input {
+    padding: 7px;
+  }
+  .search_area .search_row {
+    padding: 10px 15px;
+    gap: 18px;
+  }
+  .abc13 {
+    font-size: 28px;
+  }
+  .abc12 {
+    margin: -12px;
+  }
+  .abc11 {
+    margin-left: 112px;
+    margin-top: 0px;
+  }
+
+
 }
 
 @media (max-width: 768px) {
+  .search_driver {
+    padding: 10px 16px;
+   }
+  .abc14 {
+    padding: 6px;
+  }
+.search_row .search_col input {
+    padding: 7px;
+  }
+  .search_area .search_row {
+    padding: 10px 15px;
+    gap: 18px;
+  }
+  .abc13 {
+    font-size: 28px;
+  }
+  .abc12 {
+    margin: -12px;
+  }
+  .abc11 {
+    margin-left: 112px;
+    margin-top: 0px;
+  }
 
   .modal-content {
     width:300px;
@@ -1675,6 +1773,19 @@ margin-bottom: 2px;
     font-size: 12px;
     width: 3.5rem;
   }
+
+  .bookv-cards {
+    width: 52%;
+    margin-left: 44%;
+  }
+
+  .search_area {
+    width: 44%;
+}
+.bookv-card img {
+  width: 75%;
+  margin-left: 50px;
+}
 
 }
 
@@ -1761,6 +1872,10 @@ margin-bottom: 2px;
 
 @media (max-width: 320px) {
 }
+
+
+
+
 
 
 

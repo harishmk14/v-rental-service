@@ -67,13 +67,13 @@ function Booking() {
     <div style={{ backgroundColor: "#f4f4f4" }} className='booking_page'>
       <div style={{ boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }} className='search_area'>
         <div>
-          <h1 style={{ textAlign: "center", color: "#132b75" }}>Search Vehicle</h1>
+          <h1 className='abc13'>Search Vehicle</h1>
         </div>
         <div className='search_row'>
           <div className='search_col'>
             <label style={{ color: "#132b75" }}>  
               Vehicle Type:
-              <select style={{ padding: "10px", borderRadius: "5px", width: "102%" }} name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
+              <select className='abc14' name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
                 <option value="">Select a type</option>
                 <option value="bike">Bike</option>
                 <option value="car">Car</option>
@@ -158,12 +158,12 @@ function Booking() {
                   <div className="feature1">{vehicle.fuelType}</div>
                 </div>
               </div>
-              <div style={{ marginLeft: "40px", marginTop: "40px" }}>
+              <div className='abc11'>
                 <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
                   <IndianRupee color="#132b75" size={30} />
                   {totDays === null || isNaN(totDays) ? vehicle.price : totAmount-tax }
                 </p>
-                <p style={{ color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>+ ₹{tax} Taxes & Charges</p>
+                <p className='abc12'>+ ₹{tax} Taxes & Charges</p>
                 <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
                   onClick={() => handleBookClick(vehicle)}>
                   Book
