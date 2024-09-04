@@ -53,7 +53,7 @@ const Layout = () => {
           <div></div>
           <div></div>
         </div>
-        <nav>
+        <nav style={{display:"contents"}}>
           <ul>
             <li>
               <span

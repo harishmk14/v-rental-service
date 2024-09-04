@@ -6,6 +6,7 @@ import { Armchair, Snowflake, Cog, Fuel, PaintBucket, Calendar, RectangleEllipsi
 import { fetchBookings } from './Slice/vehicleStatusSlice';
 import { fetchVehicles } from './Slice/vehicleDataSlice';
 import { fetchUserData } from './Slice/userSlice';
+import omg from './img/omg1.png'
 
 function Journey() {
   const location = useLocation();
@@ -79,6 +80,12 @@ function Journey() {
       <div className='journey_cards'>
         {bookingsLoading ? (
           <p>Loading...</p>
+        ) : filteredBookings.length === 0 ? (
+          <div className='empty_placeholder'>
+            <img src={omg} alt="logo" className='omgimg' />
+            <h2 className='zeromargi'>OMG!</h2>
+            <p className='zeromargi'>No bookings available for the selected status.</p>
+          </div>
         ) : (
           filteredBookings.map((booking, index) => {
             const vehicle = getVehicleData(booking.carNumber);

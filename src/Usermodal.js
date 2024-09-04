@@ -69,7 +69,7 @@ const Usermodal = ({ show, onClose}) => {
 
   return (
     <div className="modal-backdrop">
-      <div className="modal-content">
+      <div className="modal-content12">
         <h2 className="modal-title">Update Information</h2>
 
         <form onSubmit={handleSubmit}>

@@ -205,7 +205,7 @@ const VehicleStatus = () => {
       .filter(booking => booking.status !== 'Cancelled' && booking.status !== 'Completed' )
       .map((booking, index) => (
         <div key={index} style={{ display: 'flex', width: '93rem', minHeight: '6rem' }}>
-          <div style={{ display: 'flex', backgroundColor: 'white', width: '93rem', minHeight: '5rem', marginTop: '1rem', borderRadius: '10px', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }}>
+          <div style={{ display: 'flex', backgroundColor: 'white', width: '93rem', minHeight: '5rem', marginTop: '1rem', borderRadius: '10px', boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)',padding: "5px 2.5px" }}>
             <div className='vsdfg'>
               <ArrowBigUp size={25} />
               <ArrowBigDown size={25} />
@@ -261,11 +261,11 @@ const VehicleStatus = () => {
               <span>{booking.proof}</span>
             </div>
             <div style={{ display: 'flex', width: '30rem', flexDirection: 'column', gap: '3px' }}>
-              <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
+              <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '20px 0' }}>
                 <span style={{ color: '#132b75', fontSize: '1.8rem' }}><IndianRupee size={22} />{booking.totalAmount - booking.advanceAmount}</span>
                 <span style={{ color: '#132b75', fontSize: '1.4rem' }}>Payment Method: {booking.paymentMethod}</span>
               </div>
-              <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '15px 0 15px 0' }}>
+              <div style={{ display: 'flex', width: '30rem', alignItems: 'center', gap: '20px', margin: '5px 0' }}>
                 <button className='but' style={{ backgroundColor: '#132b75' }} onClick={() =>{ if (booking.status === "Pending") {handleStartClick(booking._id)}}}>Start</button>
                 <div style={{ display: 'flex', backgroundColor: '#f4f4f4', width: '8.5rem', height: '3rem', borderRadius: '6px', justifyContent: 'center', alignItems: 'center' }}>{booking.status === "Journey Start" || booking.status === "Pending" ? booking.status : booking.totalTime}
                 </div>                <button className='but' style={{ backgroundColor: 'red' }} onClick={() => {

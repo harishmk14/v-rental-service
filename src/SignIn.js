@@ -31,6 +31,7 @@ function SignIn() {
     }
     if (error) {
       toast.error(error === 'Invalid credentials' ? 'Invalid credentials' : `Error: ${error}`);
+      console.log({error});
     }
   }, [user, error, navigate]);
 

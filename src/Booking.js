@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchVehicles,filterVehicles} from './Slice/vehicleDataSlice';
+import { fetchVehicles, filterVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
 import Modal from './Bookmodal';
 import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';
+import omg from './img/omg1.png'
 
 function Booking() {
   const dispatch = useDispatch();
@@ -15,8 +16,7 @@ function Booking() {
     seats: '',
     startDate: '',
     endDate: '',
-    startTime: '',
-    endTime: '',
+    priceRange: 1000, // Initial price range value
     driver: 'with-driver',
   });
   const [totDays, setTotDays] = useState(null);
@@ -33,24 +33,17 @@ function Booking() {
     });
   };
 
-    const [fromandend,setfromandend]=useState({})
+  const [fromandend, setFromAndEnd] = useState({});
   const handleSearch = () => {
     const { startDate, endDate } = form;
-    setfromandend({startDate,endDate})
-    // Convert the date strings to Date objects
+    setFromAndEnd({ startDate, endDate });
     const date1 = new Date(startDate);
     const date2 = new Date(endDate);
- 
-    // Calculate the difference in milliseconds
     const diffInMilliseconds = date2 - date1;
-
-    // Convert milliseconds to days
     const totalDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
-
-    // Store the result in the state
     setTotDays(totalDays);
 
-    dispatch(filterVehicles({ startDate, endDate }));
+    dispatch(filterVehicles({ startDate, endDate, priceRange: form.priceRange }));
   };
 
   const handleBookClick = (vehicle) => {
@@ -104,18 +97,20 @@ function Booking() {
           </div>
         </div>
         <div className='search_row'>
-          <div className='search_col'>
             <label style={{ color: "#132b75" }}>
-              Departure Time:
-              <input type="time" name="startTime" value={form.startTime} onChange={handleChange} required />
+              Price Range:
+              <input 
+                type="range" 
+                name="priceRange" 
+                value={form.priceRange} 
+                min="1000" 
+                max="50000" 
+                step="100" 
+                onChange={handleChange} 
+                className='price-range-slider'
+              />
+              <span className="price-range-value">₹{form.priceRange}</span>
             </label>
-          </div>
-          <div className='search_col'>
-            <label style={{ color: "#132b75" }}>
-              Arrive Time:
-              <input type="time" name="endTime" value={form.endTime} onChange={handleChange} required />
-            </label>
-          </div>
         </div>
         <div className='search_driver'>
           <label style={{ color: "#132b75" }}>Driver:</label>
@@ -137,10 +132,16 @@ function Booking() {
         </div>
       </div>
       <div style={{ padding: '20px', gap: '20px' }} className='bookv-cards'>
-        {vehicles.map((vehicle, index) => {
-          // Calculate total amount
-          const totAmount = (vehicle.price * totDays) + (vehicle.price / 8 + 3);
-          const tax = (vehicle.price / 8 + 3);
+        {vehicles.length === 0 ? (
+                    <div className='empty_placeholder'>
+                    <img src={omg} alt="logo" className='omgimg' />
+                    <h2 className='zeromargi'>OMG!</h2>
+                    <p className='zeromargi'>No vehicles available for the selected dates or filters.</p>
+                  </div>
+        ) : (
+          vehicles.map((vehicle, index) => {
+            const totAmount = (vehicle.price * totDays) + (vehicle.price / 8 + 3);
+            const tax = (vehicle.price / 8 + 3);
 
           return (
             <div className="bookv-card" key={index}>
@@ -161,7 +162,7 @@ function Booking() {
               <div className='abc11'>
                 <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
                   <IndianRupee color="#132b75" size={30} />
-                  {totDays === null || isNaN(totDays) ? vehicle.price : totAmount-tax }
+                  {totDays === null || isNaN(totDays) ? vehicle.price : totAmount - tax}
                 </p>
                 <p className='abc12'>+ ₹{tax} Taxes & Charges</p>
                 <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
@@ -171,7 +172,8 @@ function Booking() {
               </div>
             </div>
           );
-        })}
+        })
+        )}
       </div>
       <Modal show={showModal} onClose={handleCloseModal} vehicle={selectedVehicle} dates={fromandend} on={totDays} />
     </div>

@@ -72,7 +72,7 @@ function Vehicles() {
         <div className="vehicle-cards">
           {filteredVehicles.map((vehicle, index) => (
             <div className="vehicle-card" key={index}>
-              <div style={{display:"flex",width:"17.5rem",height:"12.5rem"}}>
+              <div>
               <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.name} className="vehicle-image" />
               </div>
               <h2>{vehicle.brandName}</h2>

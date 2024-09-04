@@ -6,7 +6,7 @@ export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch(' http://localhost:2000/api/addUser', { // Use a valid API endpoint
+      const response = await fetch('http://localhost:2000/api/addUser', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -15,7 +15,8 @@ export const registerUser = createAsyncThunk(
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to register user");
       }
 
       const data = await response.json();
