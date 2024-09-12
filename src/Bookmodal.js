@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBooking } from './Slice/bookingSlice';
+import { addBooking , sendBookingId} from './Slice/bookingSlice';
 import { fetchUserData } from './Slice/userSlice'; // Adjust the import path as necessary
 import { toast } from 'react-toastify';
 import './styles.css';
@@ -93,16 +93,21 @@ const Bookmodal = ({ show, onClose, vehicle, dates,on}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     dispatch(addBooking(form))
       .unwrap()
-      .then(() => {
+      .then((response) => {
+        // Assuming response contains the _id
+        const bookingId = response._id;
+        dispatch(sendBookingId(bookingId));
         toast.success('Booking Details Submitted!');
+  
         if (form.paymentMethod === 'Cash On') {
-          navigate('/journey', { state: { status: 'Pending' } });
+          navigate('/journey', { state: { status: 'Pending', bookingId } });
         } else if (form.paymentMethod === 'Online Pay') {
-          navigate('/payment');
+          navigate('/payment', { state: { bookingId } });
         }
+  
         resetForm();
         onClose();
       })

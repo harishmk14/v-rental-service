@@ -25,9 +25,10 @@ function SignIn() {
 
   useEffect(() => {
     if (user) {
-      toast.success('Login successful!', {
-        onClose: () => navigate('/'),
-      });
+      toast.success('Login successful!');
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
     }
     if (error) {
       toast.error(error === 'Invalid credentials' ? 'Invalid credentials' : `Error: ${error}`);
@@ -36,15 +37,10 @@ function SignIn() {
   }, [user, error, navigate]);
 
   useEffect(() => {
-    if (admin) {
-      toast.success('Admin login successful!', {
-        onClose: () => setIsAdminModalOpen(false),
-      });
-    }
     if (adminError) {
       toast.error(adminError === 'Invalid admin credentials' ? 'Invalid admin credentials' : `Error: ${adminError}`);
     }
-  }, [admin, adminError]);
+  }, [admin, adminError,navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -56,7 +52,7 @@ function SignIn() {
   };
 
   const handleAdminLogin = ({ adminId, adminPassword }) => {
-    // Dispatch the login action
+    
     dispatch(adminLogin({ adminId, adminPassword }));
   };
 
@@ -69,8 +65,12 @@ function SignIn() {
       <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
         <UserCog size={30} className='abc7' onClick={() => setIsAdminModalOpen(true)} />
       </div>
-      <AdminModal isOpen={isAdminModalOpen} onClose={() => setIsAdminModalOpen(false)} onLogin={handleAdminLogin} />
       <ToastContainer />
+  <AdminModal 
+    isOpen={isAdminModalOpen} 
+    onClose={() => setIsAdminModalOpen(false)} 
+    onLogin={handleAdminLogin} 
+  />
       <div className="login-img-container">
         <img src={img1} alt="Logo" className="login-logo" />
       </div>

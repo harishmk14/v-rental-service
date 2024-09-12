@@ -9,6 +9,8 @@ export const adminLogin = createAsyncThunk(
       const response = await axios.post('http://localhost:2000/admin/login', { adminId, password: adminPassword });
       localStorage.setItem('loggedInAdminId', response.data.admin._id);
       return response.data;
+
+
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'An error occurred');
     }

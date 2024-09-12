@@ -24,7 +24,6 @@ export const deleteVehicle = createAsyncThunk('vehicles/deleteVehicle', async (i
 export const filterVehicles = createAsyncThunk('vehicles/filterVehicles', async (filterData, { rejectWithValue }) => {
   try {
     const response = await axios.post('http://localhost:2000/booking/filter', filterData);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

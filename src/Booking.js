@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchVehicles, filterVehicles } from './Slice/vehicleDataSlice';
 import './styles.css';
 import Modal from './Bookmodal';
-import { Timer, Star, IndianRupee, MapPinned } from 'lucide-react';
+import { Timer, Star, IndianRupee, MapPinned, X } from 'lucide-react';
 import omg from './img/omg1.png'
 
 function Booking() {
@@ -20,6 +20,7 @@ function Booking() {
     driver: 'with-driver',
   });
   const [totDays, setTotDays] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchVehicles());
@@ -43,7 +44,7 @@ function Booking() {
     const totalDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
     setTotDays(totalDays);
 
-    dispatch(filterVehicles({ startDate, endDate, priceRange: form.priceRange }));
+    dispatch(filterVehicles({ startDate, endDate, priceRange: form.priceRange, vehicleType: form.vehicleType }));
   };
 
   const handleBookClick = (vehicle) => {
@@ -56,9 +57,17 @@ function Booking() {
     setSelectedVehicle(null);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div style={{ backgroundColor: "#f4f4f4" }} className='booking_page'>
-      <div style={{ boxShadow: '0 1px 6px 0 rgba(0, 0, 0, 0.2)' }} className='search_area'>
+      {/* Show hamburger menu only on smaller screens */}
+      <button className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+        {isMenuOpen ? <X style={{background:"none"}}/> : <h6 style={{margin:"0"}}>Filter</h6>} {/* Toggle between Menu and X icon */}
+      </button>
+      <div className={`search_area ${isMenuOpen ? 'open' : ''}`}>
         <div>
           <h1 className='abc13'>Search Vehicle</h1>
         </div>
@@ -67,11 +76,11 @@ function Booking() {
             <label style={{ color: "#132b75" }}>  
               Vehicle Type:
               <select className='abc14' name="vehicleType" value={form.vehicleType} onChange={handleChange} required>
-                <option value="">Select a type</option>
-                <option value="bike">Bike</option>
-                <option value="car">Car</option>
-                <option value="van">Van</option>
-                <option value="bus">Bus</option>
+                <option value="">All</option>
+                <option value="Bike">Bike</option>
+                <option value="Car">Car</option>
+                <option value="Van">Van</option>
+                <option value="Bus">Bus</option>
               </select>
             </label>
           </div>
@@ -91,7 +100,7 @@ function Booking() {
           </div>
           <div className='search_col'>
             <label style={{ color: "#132b75" }}>
-              Arrive Date:
+              Arrival Date:
               <input type="date" name="endDate" value={form.endDate} onChange={handleChange} required />
             </label>
           </div>
@@ -131,7 +140,7 @@ function Booking() {
           <button style={{ color: "white", padding: "10px", width: "100px", borderRadius: "5px", backgroundColor: "#132b75", border: "none", cursor: "pointer" }} type="button" onClick={handleSearch}>Search</button>
         </div>
       </div>
-      <div style={{ padding: '20px', gap: '20px' }} className='bookv-cards'>
+      <div  className='bookv-cards'>
         {vehicles.length === 0 ? (
                     <div className='empty_placeholder'>
                     <img src={omg} alt="logo" className='omgimg' />
@@ -148,10 +157,10 @@ function Booking() {
               <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
               <div className='portion1'>
                 <h2>{vehicle.brandName}</h2>
-                <p><IndianRupee color="#132b75" size={16} /> {vehicle.price} / Day</p>
-                <p><Star color="#132b75" size={16} /> {vehicle.star} / {vehicle.review}</p>
-                <p><MapPinned color="#132b75" size={16} /> Extra km fare Rs. {vehicle.price / 100} /km after {vehicle.range} kms</p>
-                <p><Timer color="#132b75" size={16} /> Extra time fare Rs. {vehicle.price / 25} per 30 mins after 24hr</p>
+                <p><IndianRupee color="#132b75" className='iconbook' /> {vehicle.price} / Day</p>
+                <p><Star color="#132b75" className='iconbook' /> {vehicle.star} / {vehicle.review}</p>
+                <p><MapPinned color="#132b75" className='iconbook' /> Extra km fare Rs. {vehicle.price / 100} /km after {vehicle.range} kms</p>
+                <p><Timer color="#132b75" className='iconbook' /> Extra time fare Rs. {vehicle.price / 25} per 30 mins after 24hr</p>
                 <div className="bookv-features">
                   <div className="feature1">{vehicle.seater} Seats</div>
                   <div className="feature1">{vehicle.acOrNonAc}</div>
@@ -160,12 +169,12 @@ function Booking() {
                 </div>
               </div>
               <div className='abc11'>
-                <p style={{ fontSize: "40px", color: "#132b75", fontFamily: "sans-serif", margin: "10px" }}>
-                  <IndianRupee color="#132b75" size={30} />
+                <p className='abc22'>
+                  <IndianRupee color="#132b75" className='iconrs' />
                   {totDays === null || isNaN(totDays) ? vehicle.price : totAmount - tax}
                 </p>
                 <p className='abc12'>+ ₹{tax} Taxes & Charges</p>
-                <button type="submit" style={{ backgroundColor: "#132b75", color: "white", borderRadius: "6px", fontSize: "16px", width: "7rem", padding: "10px", margin: "20px", cursor: "pointer", fontFamily: "sans-serif", border: "none" }}
+                <button type="submit" className='abc18'
                   onClick={() => handleBookClick(vehicle)}>
                   Book
                 </button>

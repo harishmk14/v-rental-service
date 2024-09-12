@@ -26,29 +26,29 @@ const Userprofile = () => {
   };
 
   return (
-    <div style={{display:"flex",backgroundColor:"#f4f4f4",width:"96rem",height:"88.9vh"}}>
-      <div style={{display:"flex",width:"29.6rem",height:"88.9vh"}}>
-        <div style={{display:"flex",flexDirection:"column", backgroundColor:"white",width:"28rem",height:"82vh",margin:"25px 0px 25px 25px", borderRadius:"10px",boxShadow: '0 1px 6px rgba(0, 0, 0, 0.2)'}}>
-          <div style={{display:"flex", width:"28rem",height:"auto",justifyContent:"center",marginTop:"3rem"}}>
-            <img style={{width:"15rem",height:"15rem",borderRadius:"55%",boxShadow: '0 1px 6px rgba(0, 0, 0, 0.2)'}}  src={pro} alt="Avatar"/>
+    <div className='userprofile-page'>
+      <div className='up1'>
+        <div className='up2'>
+          <div className='up3'>
+            <img className='up4'  src={pro} alt="Avatar"/>
           </div>
-          <div style={{display:"flex", width:"28rem",height:"auto",justifyContent:"center",marginTop:"2rem"}}>
-            <button style={{width:"8rem",padding:"10px",border:"none", borderRadius:"6px",backgroundColor:"#132b75",color:"white", cursor:"pointer"}}>Upload Photo</button>
+          <div className='up5'>
+            <button className='up6'>Upload Photo</button>
           </div>
         </div>
       </div>
-      <div style={{display:"flex",width:"66rem",height:"88.9vh"}}>
-        <div style={{display:"flex", flexDirection:"column" ,backgroundColor:"white",width:"63rem",height:"82vh",margin:"25px 25px 25px 25px", borderRadius:"10px",boxShadow: '0 1px 6px rgba(0, 0, 0, 0.2)'}}>
-          <div style={{display:"flex",width:"63rem"}}>
-            <div style={{display:"flex",justifyContent:"center",width:"55rem"}}>
-              <h1 style={{color:"#132b75"}}>User Information</h1>
+      <div className='up7'>
+        <div className='up8'>
+          <div className='up9'>
+            <div className='up10'>
+              <h1 className='up11'>User Information</h1>
             </div>
-            <div style={{display:"flex",width:"8rem",justifyContent:"center",alignItems:"center"}}>
-              <button onClick={openModal} style={{padding:"10px",border:"none", borderRadius:"6px",backgroundColor:"#132b75",color:"white", cursor:"pointer"}}>Update</button>
+            <div className='up12'>
+              <button onClick={openModal} className='up13'>Update</button>
             </div>
           </div>
           {user ? (
-            <div style={{display:"flex"}}>
+            <div className='up14'>
               <div className='mine'> 
                 <label className='upc'>First Name</label>
                 <label className='upc'>Last Name</label>

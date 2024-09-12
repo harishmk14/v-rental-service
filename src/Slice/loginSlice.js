@@ -1,13 +1,18 @@
 // src/Slice/loginSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // Define the login async thunk
 export const loginUser = createAsyncThunk('login/loginUser', async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.post('http://localhost:2000/api/user/login', userData);
     localStorage.setItem('loggedInUserId', response.data.user._id);
+    if(response.ok){
+      toast.success('Login successful!');
+    }
     return response.data;
+
   } catch (error) {
     // Log the error details for debugging
     console.error('Error logging in:', error.response ? error.response.data : error.message);

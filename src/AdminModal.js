@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from './Slice/adminSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminModal({ isOpen, onClose }) {
   const [adminId, setAdminId] = useState('');
@@ -22,7 +24,10 @@ function AdminModal({ isOpen, onClose }) {
         setAdminId('');
         setAdminPassword('');
         // Navigate to the admin page
-        navigate('/admin');
+        toast.success('Admin Login successful!');
+        setTimeout(() => {
+          navigate('/admin');
+        }, 1000);
       }
     } catch (error) {
       console.error('Login failed', error);
@@ -31,6 +36,7 @@ function AdminModal({ isOpen, onClose }) {
 
   return (
     <div className="modal-overlay">
+      <ToastContainer />
       <div className="modal-content">
         <h1 style={{ color: "#132b75" }}>Admin Login</h1>
         <form onSubmit={handleSubmit}>

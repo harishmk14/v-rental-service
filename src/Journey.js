@@ -67,7 +67,7 @@ function Journey() {
     <div className='journey_page'>
       <div className='journey_sidebar'>
         <div>
-          <h1 style={{ textAlign: "center", color: "#132b75" }}>Booking Status</h1>
+          <h1 className='jo1'>Booking Status</h1>
         </div>
         <div className='verticalbar'>
           <ul>
@@ -92,58 +92,58 @@ function Journey() {
 
             return vehicle ? (
               <div className='journey_card' key={index}>
-                <div style={{ width: "25%" }} className='journey_card_row'>
+                <div  className='journey_card_row'>
                   <img src={`http://localhost:2000${vehicle.uploadImage}`} alt={vehicle.brandName} />
                 </div>
-                <div style={{ width: "25%" }} className='journey_card_row'>
+                <div className='journey_card_row'>
                   <h2 style={{ color: "#132b75" }}>{vehicle.brandName}</h2>
-                  <div style={{ display: "flex", paddingBottom: "15px" }}>
-                    <div style={{ display: "flex", marginTop: "5px", flexDirection: "column", rowGap: "20px" }}>
-                      <Armchair color="#132b75" size={16} />
-                      <Snowflake color="#132b75" size={16} />
-                      <Cog color="#132b75" size={16} />
-                      <Fuel color="#132b75" size={16} />
+                  <div className='jo2'>
+                    <div className='jo3'>
+                      <Armchair color="#132b75" className='jo4'/>
+                      <Snowflake color="#132b75" className='jo4'/>
+                      <Cog color="#132b75" className='jo4'/>
+                      <Fuel color="#132b75" className='jo4'/>
                     </div>
-                    <div style={{ display: "flex", paddingLeft: "15px", flexDirection: "column", rowGap: "13px" }}>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.seater}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.acOrNonAc}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.gearType}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.fuelType}</p>
+                    <div className='jo5'>
+                      <p className='jo6'>{vehicle.seater}</p>
+                      <p className='jo6'>{vehicle.acOrNonAc}</p>
+                      <p className='jo6'>{vehicle.gearType}</p>
+                      <p className='jo6'>{vehicle.fuelType}</p>
                     </div>
-                    <div style={{ display: "flex", marginTop: "5px", flexDirection: "column", rowGap: "20px", paddingLeft: "25px" }}>
-                      <PaintBucket color="#132b75" size={16} />
-                      <Calendar color="#132b75" size={16} />
-                      <RectangleEllipsis color="#132b75" size={16} />
-                      <ArrowUpDown color="#132b75" size={16} />
+                    <div className='jo7'>
+                      <PaintBucket color="#132b75" className='jo4'/>
+                      <Calendar color="#132b75" className='jo4'/>
+                      <RectangleEllipsis color="#132b75" className='jo4'/>
+                      <ArrowUpDown color="#132b75" className='jo4'/>
                     </div>
-                    <div style={{ display: "flex", paddingLeft: "15px", flexDirection: "column", rowGap: "13px" }}>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.color}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.model}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.registrationNumber}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>{vehicle.tollType}</p>
+                    <div className='jo5'>
+                      <p className='jo6'>{vehicle.color}</p>
+                      <p className='jo6'>{vehicle.model}</p>
+                      <p className='jo6'>{vehicle.registrationNumber}</p>
+                      <p className='jo6'>{vehicle.tollType}</p>
                     </div>
                   </div>
                 </div>
                 <div className='journey_card_row'>
-                  <h3 style={{ color: "#132b75", paddingTop: "10px" }}>Booked By</h3>
-                  <div style={{ display: "flex", paddingTop: "2px" }}>
-                    <div style={{ display: "flex", flexDirection: "column", rowGap: "13px" }}>
-                      <p style={{ margin: "0px", color: "#132b75" }}>Name</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>Departure Date</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>Arrive Date</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>Driver</p>
+                  <h3 className='jo8'>Booked By</h3>
+                  <div className='jo9'>
+                    <div className='jo10'>
+                      <p className='jo6'>Name</p>
+                      <p className='jo6'>Departure Date</p>
+                      <p className='jo6'>Arrive Date</p>
+                      <p className='jo6'>Driver</p>
                     </div>
-                    <div style={{ paddingLeft: "10px", display: "flex", flexDirection: "column", rowGap: "13px" }}>
-                      <p style={{ margin: "0px", color: "#132b75" }}>: {booking.name}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>: {formatDate(booking.startDate)}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>: {formatDate(booking.endDate)}</p>
-                      <p style={{ margin: "0px", color: "#132b75" }}>: Included</p>
+                    <div className='jo11'>
+                      <p className='jo6'>: {booking.name}</p>
+                      <p className='jo6'>: {formatDate(booking.startDate)}</p>
+                      <p className='jo6'>: {formatDate(booking.endDate)}</p>
+                      <p className='jo6'>: Included</p>
                     </div>
                   </div>
                 </div>
-                <div style={{ margin: "0px 20px 0px 20px" }} className='journey_card_row'>
-                  <h1 style={{ padding: "20px 20px 0px 20px", color: "#132b75" }}>{booking.status}</h1>
-                  <div style={{ padding: "0px 20px 0px 20px" }}>
+                <div className='journey_card_row1'>
+                  <h1 className='jo12'>{booking.status}</h1>
+                  <div className='jo13'>
                     <h2 style={{ color: "#132b75" }}>Payment Status:</h2>
                     <h3 style={{ color: "#132b75" }}>{booking.paymentStatus}</h3>
                   </div>
